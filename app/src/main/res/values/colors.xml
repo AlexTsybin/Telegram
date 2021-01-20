@@ -34,6 +34,9 @@
     <color name="material_drawer_header_selection_text">#DEFFFFFF</color>
     <color name="material_drawer_header_selection_subtext">#8A000000</color>
 
+    <color name="main_text_color">#D0D0D0</color>
+    <color name="secondary_text_color">#8C8C8C</color>
+
     <!-- OVERWRITE THESE COLORS FOR A DARK THEME -->
     <!-- MaterialDrawer DEFAULT DARK colors -->
     <color name="material_drawer_dark_background">#303030</color>

@@ -1,14 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.SettingsFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settings_header_block"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_header_height"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/settings_user_avatar"
+            android:layout_width="@dimen/settings_avatar_size"
+            android:layout_height="@dimen/settings_avatar_size"
+            android:layout_marginStart="@dimen/default_margin"
+            android:src="@drawable/user_avatar"
+            app:civ_border_color="#8C8C8C"
+            app:civ_border_width="@dimen/xxsmall_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/settings_user_avatar"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/settings_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin"
+                android:textSize="16sp"
+                tools:text="Alex Tsybin" />
+
+            <TextView
+                android:id="@+id/settings_user_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin"
+                android:textSize="12sp"
+                tools:text="@string/online" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/settings_change_avatar"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:elevation="1dp"
+        android:src="@drawable/ic_camera"
+        app:civ_circle_background_color="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="@id/settings_header_block"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_header_block" />
+
     <TextView
+        android:id="@+id/settings_account_tv"
+        style="@style/primaryText.14sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="Settings" />
+        android:paddingHorizontal="@dimen/default_margin"
+        android:paddingTop="@dimen/small_margin"
+        android:text="@string/account"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_header_block" />
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/setting_phone_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/default_margin"
+        android:paddingTop="@dimen/small_margin"
+        app:layout_constraintTop_toBottomOf="@id/settings_account_tv">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            tools:text="+7 (911) 111-11-11" />
+
+        <TextView
+            style="@style/secondaryText.12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xsmall_margin"
+            android:text="@string/tap_to_change_phone_number" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/small_margin"
+            android:background="@color/material_drawer_divider" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/setting_username_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/default_margin"
+        android:paddingTop="@dimen/small_margin"
+        app:layout_constraintTop_toBottomOf="@id/setting_phone_block">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            tools:text="None" />
+
+        <TextView
+            style="@style/secondaryText.12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xsmall_margin"
+            android:text="@string/username" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/small_margin"
+            android:background="@color/material_drawer_divider" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/setting_bio_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_effect"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/default_margin"
+        android:paddingVertical="@dimen/small_margin"
+        app:layout_constraintTop_toBottomOf="@id/setting_username_block">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            tools:text="Bio" />
+
+        <TextView
+            style="@style/secondaryText.12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/xsmall_margin"
+            android:text="@string/add_a_few_words_about_yourself" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

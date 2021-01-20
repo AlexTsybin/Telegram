@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Roboto regular, weight = 400, (normal)-->
+    <style name="mainText">
+        <item name="android:textColor">@color/main_text_color</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="mainText.11sp">
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <!--Roboto medium, weight = 500-->
+    <style name="mainText.Medium">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!--Roboto light, weight = 300-->
+    <style name="mainText.Light">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="mainText.Light.12sp">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!--Roboto thin, weight = 100-->
+    <style name="mainText.Thin">
+        <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+
+    <!--Secondary text-->
+    <style name="secondaryText">
+        <item name="android:textColor">@color/secondary_text_color</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="secondaryText.12sp">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="secondaryText.Light">
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="secondaryText.Light.12sp">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!--Accent text-->
+    <style name="primaryText">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="primaryText.14sp">
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>
