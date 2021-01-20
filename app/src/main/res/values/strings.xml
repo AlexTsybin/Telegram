@@ -6,4 +6,6 @@
     <string name="username">Username</string>
     <string name="account">Account</string>
     <string name="online">online</string>
+    <string name="edit_name">Edit name</string>
+    <string name="log_out">Log out</string>
 </resources>

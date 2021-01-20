@@ -7,6 +7,8 @@
 
         <item name="android:colorBackground">@color/colorAccent</item>
 
+        <item name="popupTheme">@style/optionsMenu </item>
+
         <!-- MaterialDrawer specific values -->
         <item name="material_drawer_background">@color/material_drawer_background</item>
         <item name="material_drawer_primary_text">@color/material_drawer_primary_text</item>
@@ -40,5 +42,10 @@
         <item name="material_drawer_header_selection_text">@color/material_drawer_header_selection_text</item>
         <item name="material_drawer_header_selection_subtext">@color/material_drawer_dark_header_selection_subtext</item>
         <item name="material_drawer_legacy_style">false</item> <!-- Enables legacy Material 1 style -->
+    </style>
+
+    <style name="optionsMenu" parent="Theme.AppCompat.Light">
+        <item name="background">@color/colorAccent</item>
+        <item name="actionMenuTextColor">@color/main_text_color</item>
     </style>
 </resources>

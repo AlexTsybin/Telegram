@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:icon="@drawable/ic_menu_more"
+        android:title=""
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/setting_edit_name"
+                android:icon="@drawable/ic_settings_menu_edit"
+                android:title="@string/edit_name"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/setting_log_out"
+                android:icon="@drawable/ic_settings_menu_exit"
+                android:title="@string/log_out"
+                app:showAsAction="never" />
+        </menu>
+    </item>
 </menu>
