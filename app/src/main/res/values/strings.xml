@@ -8,4 +8,9 @@
     <string name="online">online</string>
     <string name="edit_name">Edit name</string>
     <string name="log_out">Log out</string>
+    <string name="enter_code">Enter code</string>
+    <string name="sms_with_code_hint">We send you SMS with code</string>
+    <string name="code_hint">- - - - - -</string>
+    <string name="title_your_phone">Your Phone</string>
+    <string name="enter_phone_number">Enter your phone number</string>
 </resources>

@@ -6,6 +6,10 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
+    <style name="mainText.16sp">
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="mainText.11sp">
         <item name="android:textSize">11sp</item>
     </style>
