@@ -23,7 +23,7 @@ class RegisterActivity : AppCompatActivity() {
         setSupportActionBar(mToolbar)
         title = getString(R.string.title_your_phone)
         supportFragmentManager.beginTransaction()
-            .add(R.id.registerDataContainer, AddPhoneNumberFragment())
+            .add(R.id.dataContainer, AddPhoneNumberFragment())
             .commit()
     }
 }
