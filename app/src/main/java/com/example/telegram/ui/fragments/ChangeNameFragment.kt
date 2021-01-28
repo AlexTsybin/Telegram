@@ -12,6 +12,13 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
+        initUserName()
+    }
+
+    private fun initUserName() {
+        val fullnameList = USER.fullname.split(" ")
+        settings_change_name_et.setText(fullnameList[0])
+        settings_change_surname_et.setText(fullnameList[1])
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -20,7 +27,7 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.setting_apply -> applyChanges()
         }
         return true
@@ -30,17 +37,18 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
         val name = settings_change_name_et.text.toString()
         val surname = settings_change_surname_et.text.toString()
 
-        if (name.isEmpty()){
+        if (name.isEmpty()) {
             showToast(getString(R.string.change_name_warning))
-        } else{
+        } else {
             val fullname = "$name $surname"
-            REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(USER_FULLNAME).setValue(fullname).addOnCompleteListener {
-                if (it.isSuccessful){
-                    showToast(getString(R.string.toast_name_updated))
-                    USER.fullname = fullname
-                    fragmentManager?.popBackStack()
+            REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(USER_FULLNAME).setValue(fullname)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        showToast(getString(R.string.toast_name_updated))
+                        USER.fullname = fullname
+                        fragmentManager?.popBackStack()
+                    }
                 }
-            }
         }
     }
 }
