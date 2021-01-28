@@ -8,8 +8,10 @@ import com.example.telegram.MainActivity
 import com.example.telegram.R
 import com.example.telegram.activities.RegisterActivity
 import com.example.telegram.utils.AUTH
+import com.example.telegram.utils.USER
 import com.example.telegram.utils.changeActivity
 import com.example.telegram.utils.replaceFragment
+import kotlinx.android.synthetic.main.fragment_settings.*
 
 /**
  * A simple [Fragment] subclass.
@@ -19,6 +21,15 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
+        initFields()
+    }
+
+    private fun initFields() {
+        settings_fullname.text = USER.fullname
+        settings_user_status.text = USER.status
+        settings_user_phone_number.text = USER.phone
+        settings_username.text = USER.username
+        settings_user_bio.text = USER.bio
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -1,6 +1,5 @@
 package com.example.telegram.ui.fragments
 
-import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.example.telegram.MainActivity
@@ -12,10 +11,10 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
-        initUserName()
+        initFields()
     }
 
-    private fun initUserName() {
+    private fun initFields() {
         val fullnameList = USER.fullname.split(" ")
         settings_change_name_et.setText(fullnameList[0])
         settings_change_surname_et.setText(fullnameList[1])
