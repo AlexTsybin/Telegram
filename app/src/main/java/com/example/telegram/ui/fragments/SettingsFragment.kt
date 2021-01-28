@@ -9,6 +9,7 @@ import com.example.telegram.R
 import com.example.telegram.activities.RegisterActivity
 import com.example.telegram.utils.AUTH
 import com.example.telegram.utils.changeActivity
+import com.example.telegram.utils.replaceFragment
 
 /**
  * A simple [Fragment] subclass.
@@ -28,8 +29,13 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.setting_log_out -> logOut()
+            R.id.setting_edit_name -> editName()
         }
         return true
+    }
+
+    private fun editName() {
+        replaceFragment(ChangeNameFragment())
     }
 
     private fun logOut() {

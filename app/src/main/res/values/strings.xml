@@ -14,4 +14,9 @@
     <string name="title_your_phone">Your Phone</string>
     <string name="enter_phone_number">Enter your phone number</string>
     <string name="code_verified">Code verified</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="apply">Apply</string>
+    <string name="change_name_warning">Name shouldn\'t be empty</string>
+    <string name="toast_name_updated">User\'s name updated</string>
 </resources>
