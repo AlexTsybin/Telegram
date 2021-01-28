@@ -42,16 +42,17 @@
 
     <EditText
         android:id="@+id/register_code_input"
-        android:layout_width="match_parent"
+        style="@style/mainText.16sp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
         android:autofillHints=""
         android:gravity="center"
-        android:inputType="phone"
         android:hint="@string/code_hint"
+        android:inputType="phone"
         android:maxLength="6"
         android:maxLines="1"
-        style="@style/mainText.16sp"
+        android:textColorHint="@color/secondary_text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/code_hint_tv" />

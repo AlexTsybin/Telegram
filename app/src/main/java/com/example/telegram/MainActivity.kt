@@ -8,13 +8,16 @@ import com.example.telegram.activities.RegisterActivity
 import com.example.telegram.databinding.ActivityMainBinding
 import com.example.telegram.ui.fragments.ChatsFragment
 import com.example.telegram.ui.objects.AppDrawer
+import com.example.telegram.utils.AUTH
 import com.example.telegram.utils.changeActivity
+import com.example.telegram.utils.initFirebase
 import com.example.telegram.utils.replaceFragment
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
-    private lateinit var mAppDrawer: AppDrawer
+    lateinit var mAppDrawer: AppDrawer
     private lateinit var mToolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,17 +33,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFunc() {
-        if (false) {
+        if (AUTH.currentUser == null) {
             changeActivity(RegisterActivity())
         } else {
             setSupportActionBar(mToolbar)
             mAppDrawer.create()
-            replaceFragment(ChatsFragment())
+            replaceFragment(ChatsFragment(), false)
         }
     }
 
     private fun initFields() {
         mToolbar = mBinding.mainToolbar
         mAppDrawer = AppDrawer(this, mToolbar)
+        initFirebase()
     }
 }
