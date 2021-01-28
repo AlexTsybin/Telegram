@@ -7,7 +7,7 @@ import com.example.telegram.R
 import com.example.telegram.utils.*
 import kotlinx.android.synthetic.main.fragment_change_name.*
 
-class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
+class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
@@ -16,8 +16,12 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
 
     private fun initFields() {
         val fullnameList = USER.fullname.split(" ")
-        settings_change_name_et.setText(fullnameList[0])
-        settings_change_surname_et.setText(fullnameList[1])
+        if (fullnameList.size > 1) {
+            settings_change_name_et.setText(fullnameList[0])
+            settings_change_surname_et.setText(fullnameList[1])
+        } else {
+            settings_change_name_et.setText(fullnameList[0])
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
