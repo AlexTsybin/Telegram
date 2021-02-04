@@ -11,6 +11,8 @@ lateinit var UID: String
 lateinit var USER: User
 
 const val NODE_USERS = "users"
+const val NODE_USERNAMES = "usernames"
+
 const val USER_ID = "id"
 const val USER_PHONE = "phone"
 const val USER_USERNAME = "username"

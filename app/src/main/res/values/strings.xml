@@ -19,4 +19,7 @@
     <string name="apply">Apply</string>
     <string name="change_name_warning">Name shouldn\'t be empty</string>
     <string name="toast_name_updated">User\'s name updated</string>
+    <string name="change_username_warning">Username shouldn\'t be empty</string>
+    <string name="toast_username_updated">Username updated</string>
+    <string name="username_already_exist_warning">User with this username already exist</string>
 </resources>
