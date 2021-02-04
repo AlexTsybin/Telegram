@@ -7,10 +7,10 @@ import com.example.telegram.R
 import com.example.telegram.utils.*
 import kotlinx.android.synthetic.main.fragment_change_name.*
 
-class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
+class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
+
     override fun onResume() {
         super.onResume()
-        setHasOptionsMenu(true)
         initFields()
     }
 
@@ -24,19 +24,7 @@ class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        (activity as MainActivity).menuInflater.inflate(R.menu.settings_change_name_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.setting_apply -> applyChanges()
-        }
-        return true
-    }
-
-    private fun applyChanges() {
+    override fun applyChanges() {
         val name = settings_change_name_et.text.toString()
         val surname = settings_change_surname_et.text.toString()
 

@@ -22,4 +22,6 @@
     <string name="change_username_warning">Username shouldn\'t be empty</string>
     <string name="toast_username_updated">Username updated</string>
     <string name="username_already_exist_warning">User with this username already exist</string>
+    <string name="biography">Biography</string>
+    <string name="users_bio_updated">User\'s bio updated</string>
 </resources>

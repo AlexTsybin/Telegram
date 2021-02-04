@@ -9,29 +9,16 @@ import com.example.telegram.utils.*
 import kotlinx.android.synthetic.main.fragment_change_username.*
 import java.util.*
 
-class ChangeUsernameFragment : BaseFragment(R.layout.fragment_change_username) {
+class ChangeUsernameFragment : BaseChangeFragment(R.layout.fragment_change_username) {
 
     private lateinit var mNewUsername: String
 
     override fun onResume() {
         super.onResume()
-        setHasOptionsMenu(true)
         settings_change_username_et.setText(USER.username)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        (activity as MainActivity).menuInflater.inflate(R.menu.settings_change_name_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.setting_apply -> applyChanges()
-        }
-        return true
-    }
-
-    private fun applyChanges() {
+    override fun applyChanges() {
         mNewUsername = settings_change_username_et.text.toString().toLowerCase(Locale.getDefault())
         if (mNewUsername.isEmpty()) {
             showToast(getString(R.string.change_username_warning))
