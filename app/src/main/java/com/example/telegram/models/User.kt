@@ -6,6 +6,6 @@ data class User(
     var fullname: String = "",
     var phone: String = "",
     var bio: String = "",
-    var status: String = "",
-    var avatarUrl: String = ""
+    var state: String = "",
+    var avatarUrl: String = "empty" // default link for Picasso
 )

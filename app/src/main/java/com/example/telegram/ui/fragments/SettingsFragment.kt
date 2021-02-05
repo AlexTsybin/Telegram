@@ -2,16 +2,12 @@ package com.example.telegram.ui.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.net.Uri
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import com.example.telegram.R
 import com.example.telegram.activities.RegisterActivity
 import com.example.telegram.utils.*
-import com.google.firebase.storage.StorageReference
-import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -26,7 +22,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     private fun initFields() {
         settings_fullname.text = USER.fullname
-        settings_user_status.text = USER.status
+        settings_user_status.text = USER.state
         settings_user_phone_number.text = USER.phone
         settings_username.text = USER.username
         settings_user_bio.text = USER.bio
