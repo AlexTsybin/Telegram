@@ -2,6 +2,7 @@ package com.example.telegram.ui.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.net.Uri
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -9,14 +10,12 @@ import androidx.fragment.app.Fragment
 import com.example.telegram.R
 import com.example.telegram.activities.RegisterActivity
 import com.example.telegram.utils.*
+import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.fragment_settings.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     override fun onResume() {
@@ -34,6 +33,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         setting_username_block.setOnClickListener { replaceFragment(ChangeUsernameFragment()) }
         setting_bio_block.setOnClickListener { replaceFragment(ChangeBioFragment()) }
         settings_change_avatar.setOnClickListener { changeUserAvatar() }
+        settings_user_avatar.downloadAndSetImage(USER.avatarUrl)
     }
 
     private fun changeUserAvatar() {
@@ -71,21 +71,13 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             val uri = CropImage.getActivityResult(data).uri
             val path = REF_STORAGE_ROOT.child(FOLDER_USER_AVATAR).child(CURRENT_UID)
-            path.putFile(uri).addOnCompleteListener { taskPut ->
-                if (taskPut.isSuccessful) {
-                    path.downloadUrl.addOnCompleteListener { taskDownload ->
-                        if (taskDownload.isSuccessful) {
-                            val avatarUrl = taskDownload.result.toString()
-                            REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
-                                .child(USER_AVATAR_URL).setValue(avatarUrl)
-                                .addOnCompleteListener {
-                                    if (it.isSuccessful) {
-                                        settings_user_avatar.downloadAndSetImage(avatarUrl)
-                                        showToast(getString(R.string.data_updated))
-                                        USER.avatarUrl = avatarUrl
-                                    }
-                                }
-                        }
+
+            putImageToStorage(uri, path) {
+                getUrlFromStorage(path) {
+                    saveUrlToDatabase(it) {
+                        settings_user_avatar.downloadAndSetImage(it)
+                        showToast(getString(R.string.data_updated))
+                        USER.avatarUrl = it
                     }
                 }
             }
