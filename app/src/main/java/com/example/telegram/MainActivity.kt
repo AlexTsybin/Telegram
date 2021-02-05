@@ -24,13 +24,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+        APP_ACTIVITY = this
+        initFields()
+        initFunc()
     }
 
     override fun onStart() {
         super.onStart()
-        APP_ACTIVITY = this
-        initFields()
-        initFunc()
     }
 
     private fun initFunc() {
@@ -55,36 +55,5 @@ class MainActivity : AppCompatActivity() {
             .addListenerForSingleValueEvent(AppValueEventListener {
                 USER = it.getValue(User::class.java) ?: User()
             })
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-            val uri = CropImage.getActivityResult(data).uri
-            val path = REF_STORAGE_ROOT.child(FOLDER_USER_AVATAR).child(CURRENT_UID)
-            path.putFile(uri).addOnCompleteListener { taskPut ->
-                if (taskPut.isSuccessful) {
-                    path.downloadUrl.addOnCompleteListener { taskDownload ->
-                        if (taskDownload.isSuccessful) {
-                            val avatarUrl = taskDownload.result.toString()
-                            REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
-                                .child(USER_AVATAR_URL).setValue(avatarUrl)
-                                .addOnCompleteListener {
-                                    if (it.isSuccessful) {
-                                        showToast(getString(R.string.data_updated))
-                                        USER.avatarUrl = avatarUrl
-                                    }
-                                }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    fun hideKeyboard() {
-        val imm: InputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
     }
 }

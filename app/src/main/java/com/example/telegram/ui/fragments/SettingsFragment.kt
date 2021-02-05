@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.telegram.R
 import com.example.telegram.activities.RegisterActivity
 import com.example.telegram.utils.*
+import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -40,7 +41,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             .setAspectRatio(1, 1)
             .setRequestedSize(600, 600)
             .setCropShape(CropImageView.CropShape.OVAL)
-            .start(APP_ACTIVITY)
+            .start(APP_ACTIVITY, this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -63,5 +64,31 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     private fun logOut() {
         AUTH.signOut()
         APP_ACTIVITY.changeActivity(RegisterActivity())
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            val uri = CropImage.getActivityResult(data).uri
+            val path = REF_STORAGE_ROOT.child(FOLDER_USER_AVATAR).child(CURRENT_UID)
+            path.putFile(uri).addOnCompleteListener { taskPut ->
+                if (taskPut.isSuccessful) {
+                    path.downloadUrl.addOnCompleteListener { taskDownload ->
+                        if (taskDownload.isSuccessful) {
+                            val avatarUrl = taskDownload.result.toString()
+                            REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
+                                .child(USER_AVATAR_URL).setValue(avatarUrl)
+                                .addOnCompleteListener {
+                                    if (it.isSuccessful) {
+                                        settings_user_avatar.downloadAndSetImage(avatarUrl)
+                                        showToast(getString(R.string.data_updated))
+                                        USER.avatarUrl = avatarUrl
+                                    }
+                                }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
