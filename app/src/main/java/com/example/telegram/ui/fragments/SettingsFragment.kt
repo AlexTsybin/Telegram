@@ -78,6 +78,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
                         settings_user_avatar.downloadAndSetImage(it)
                         showToast(getString(R.string.data_updated))
                         USER.avatarUrl = it
+                        APP_ACTIVITY.mAppDrawer.updateHeader()
                     }
                 }
             }
