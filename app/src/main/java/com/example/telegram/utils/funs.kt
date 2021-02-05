@@ -8,8 +8,8 @@ import com.example.telegram.R
 import com.example.telegram.activities.RegisterActivity
 import com.example.telegram.ui.fragments.ChatsFragment
 
-fun Fragment.showToast(message: String) {
-    Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()
+fun showToast(message: String) {
+    Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
 }
 
 fun AppCompatActivity.changeActivity(activity: AppCompatActivity) {

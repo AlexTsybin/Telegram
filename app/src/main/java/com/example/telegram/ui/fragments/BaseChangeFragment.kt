@@ -5,17 +5,23 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import com.example.telegram.MainActivity
 import com.example.telegram.R
+import com.example.telegram.utils.APP_ACTIVITY
 
 open class BaseChangeFragment(layout: Int) : BaseFragment(layout) {
 
     override fun onStart() {
         super.onStart()
         setHasOptionsMenu(true)
-        (activity as MainActivity).mAppDrawer.disableDrawer()
+        APP_ACTIVITY.mAppDrawer.disableDrawer()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        APP_ACTIVITY.hideKeyboard()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        (activity as MainActivity).menuInflater.inflate(R.menu.settings_change_name_menu, menu)
+        APP_ACTIVITY.menuInflater.inflate(R.menu.settings_change_name_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
