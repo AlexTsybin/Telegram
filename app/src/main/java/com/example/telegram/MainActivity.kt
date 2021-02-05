@@ -41,12 +41,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initContacts() {
-        if (checkPermission(READ_CONTACTS)) {
-            showToast("Contacts reading...")
-        }
-    }
-
     override fun onStart() {
         super.onStart()
         AppStates.updateState(AppStates.ONLINE)
