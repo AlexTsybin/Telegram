@@ -62,16 +62,29 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             val uri = CropImage.getActivityResult(data).uri
             val path = REF_STORAGE_ROOT.child(FOLDER_USER_AVATAR).child(CURRENT_UID)
-            path.putFile(uri).addOnCompleteListener{
-                if (it.isSuccessful){
-                    showToast(getString(R.string.data_updated))
+            path.putFile(uri).addOnCompleteListener { taskPut ->
+                if (taskPut.isSuccessful) {
+                    path.downloadUrl.addOnCompleteListener { taskDownload ->
+                        if (taskDownload.isSuccessful) {
+                            val avatarUrl = taskDownload.result.toString()
+                            REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
+                                .child(USER_AVATAR_URL).setValue(avatarUrl)
+                                .addOnCompleteListener {
+                                    if (it.isSuccessful) {
+                                        showToast(getString(R.string.data_updated))
+                                        USER.avatarUrl = avatarUrl
+                                    }
+                                }
+                        }
+                    }
                 }
             }
         }
     }
 
-    fun hideKeyboard(){
-        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    fun hideKeyboard() {
+        val imm: InputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
     }
 }
