@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ripple_effect"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="@dimen/default_margin">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/contact_avatar"
+        android:layout_width="@dimen/settings_avatar_size"
+        android:layout_height="@dimen/settings_avatar_size"
+        android:src="@drawable/user_avatar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/contact_fullname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/contact_avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Alex Tsybin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/contact_avatar"
+        app:layout_constraintTop_toBottomOf="@id/contact_fullname"
+        tools:text="@string/online" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
