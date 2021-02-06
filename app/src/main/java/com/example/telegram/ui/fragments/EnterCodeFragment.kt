@@ -33,14 +33,15 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) :
                 userMap[USER_PHONE] = phoneNumber
                 userMap[USER_USERNAME] = uid
 
-                REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(userMap)
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            showToast("Welcome to Telegram!")
-                            (activity as RegisterActivity).changeActivity(MainActivity())
-                        } else {
-                            showToast(it.exception?.message.toString())
-                        }
+                REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber).setValue(uid)
+                    .addOnFailureListener { showToast(it.message.toString()) }
+                    .addOnSuccessListener {
+                        REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(userMap)
+                            .addOnFailureListener { showToast(it.message.toString()) }
+                            .addOnSuccessListener {
+                                showToast("Welcome to Telegram!")
+                                (activity as RegisterActivity).changeActivity(MainActivity())
+                            }
                     }
             } else {
                 showToast(it.exception?.message.toString())

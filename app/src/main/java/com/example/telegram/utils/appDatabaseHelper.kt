@@ -21,6 +21,8 @@ const val FOLDER_USER_AVATAR = "user_avatar"
 
 const val NODE_USERS = "users"
 const val NODE_USERNAMES = "usernames"
+const val NODE_PHONES = "phones"
+const val NODE_CONTACTS = "contacts"
 
 const val USER_ID = "id"
 const val USER_PHONE = "phone"
@@ -95,5 +97,22 @@ fun initContacts() {
         }
 
         cursor?.close()
+
+        addContactsToDatabase(arrayContacts)
     }
+}
+
+fun addContactsToDatabase(arrayContacts: ArrayList<CommonModel>) {
+    REF_DATABASE_ROOT.child(NODE_PHONES).addListenerForSingleValueEvent(AppValueEventListener {
+        it.children.forEach { snapshot ->
+            arrayContacts.forEach { contact ->
+                if (snapshot.key == contact.phone) {
+                    REF_DATABASE_ROOT.child(NODE_CONTACTS).child(CURRENT_UID)
+                        .child(snapshot.value.toString()).child(USER_ID)
+                        .setValue(snapshot.value.toString())
+                        .addOnFailureListener { showToast(it.message.toString()) }
+                }
+            }
+        }
+    })
 }
