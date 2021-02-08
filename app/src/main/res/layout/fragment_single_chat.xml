@@ -20,18 +20,20 @@
 
     <EditText
         android:id="@+id/chat_input"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/message"
         android:inputType="text"
         android:padding="@dimen/medium_margin"
         android:textColor="@color/black"
+        android:autofillHints="text"
         android:textColorHint="@color/secondary_text_color"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/send_message_image"/>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/send_message_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/send_message_cd"

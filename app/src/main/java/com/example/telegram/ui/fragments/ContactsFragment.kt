@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.R
 import com.example.telegram.models.CommonModel
@@ -63,10 +64,17 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
                 mRefUsersListener = AppValueEventListener {
                     val contact = it.getCommonModel()
 
-                    holder.name.text = contact.fullname
+                    if (contact.fullname.isEmpty()) {
+                        holder.name.text = model.fullname
+                    } else {
+                        holder.name.text = contact.fullname
+                    }
+                    if (contact.state == AppStates.ONLINE.state){
+                        holder.status.setTextColor(ContextCompat.getColor(mContacts.context, R.color.colorPrimary))
+                    }
                     holder.status.text = contact.state
                     holder.avatar.downloadAndSetImage(contact.avatarUrl)
-                    holder.itemView.setOnClickListener { replaceFragment(SingleChatFragment(contact)) }
+                    holder.itemView.setOnClickListener { replaceFragment(SingleChatFragment(model)) }
                 }
 
                 mRefUsers.addValueEventListener(mRefUsersListener)

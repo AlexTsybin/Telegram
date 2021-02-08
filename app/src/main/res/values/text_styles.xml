@@ -57,6 +57,10 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
+    <style name="primaryText.12sp">
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="primaryText.14sp">
         <item name="android:textSize">14sp</item>
     </style>

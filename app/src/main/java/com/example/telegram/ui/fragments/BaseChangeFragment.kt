@@ -1,9 +1,8 @@
 package com.example.telegram.ui.fragments
 
-import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
-import com.example.telegram.MainActivity
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import com.example.telegram.R
 import com.example.telegram.utils.APP_ACTIVITY
 import com.example.telegram.utils.hideKeyboard

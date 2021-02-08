@@ -9,7 +9,6 @@ import com.example.telegram.utils.changeActivity
 import com.example.telegram.utils.replaceFragment
 import com.example.telegram.utils.showToast
 import com.google.firebase.FirebaseException
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.android.synthetic.main.fragment_add_phone_number.*

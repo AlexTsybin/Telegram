@@ -6,11 +6,13 @@ enum class AppStates(val state: String) {
     TYPING("typing");
 
     companion object {
-        fun updateState(appStates: AppStates){
-            REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(USER_STATE)
-                .setValue(appStates.state)
-                .addOnSuccessListener { USER.state = appStates.state }
-                .addOnFailureListener { showToast(it.message.toString()) }
+        fun updateState(appStates: AppStates) {
+            if (AUTH.currentUser != null) {
+                REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(USER_STATE)
+                    .setValue(appStates.state)
+                    .addOnSuccessListener { USER.state = appStates.state }
+                    .addOnFailureListener { showToast(it.message.toString()) }
+            }
         }
     }
 }

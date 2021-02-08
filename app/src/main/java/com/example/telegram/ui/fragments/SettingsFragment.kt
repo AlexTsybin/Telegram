@@ -59,6 +59,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     }
 
     private fun logOut() {
+        AppStates.updateState(AppStates.OFFLINE)
         AUTH.signOut()
         APP_ACTIVITY.changeActivity(RegisterActivity())
     }
