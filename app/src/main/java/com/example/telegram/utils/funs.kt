@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.telegram.R
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_settings.*
 
 fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
@@ -50,6 +49,6 @@ fun hideKeyboard() {
 fun ImageView.downloadAndSetImage(url: String){
     Picasso.get()
         .load(url)
-        .placeholder(R.drawable.avatar_user)
+        .placeholder(R.drawable.avatar_user_light)
         .into(this)
 }

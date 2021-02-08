@@ -20,7 +20,7 @@
             android:layout_width="@dimen/settings_avatar_size"
             android:layout_height="@dimen/settings_avatar_size"
             android:layout_marginStart="@dimen/default_margin"
-            android:src="@drawable/avatar_user"
+            android:src="@drawable/avatar_user_dark"
             app:civ_border_color="#8C8C8C"
             app:civ_border_width="@dimen/xxsmall_margin"
             app:layout_constraintBottom_toBottomOf="parent"

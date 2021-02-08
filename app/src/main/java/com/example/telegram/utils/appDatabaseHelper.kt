@@ -3,7 +3,7 @@ package com.example.telegram.utils
 import android.net.Uri
 import android.provider.ContactsContract
 import com.example.telegram.models.CommonModel
-import com.example.telegram.models.User
+import com.example.telegram.models.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
@@ -16,7 +16,7 @@ lateinit var REF_DATABASE_ROOT: DatabaseReference
 lateinit var REF_STORAGE_ROOT: StorageReference
 
 lateinit var CURRENT_UID: String
-lateinit var USER: User
+lateinit var USER: UserModel
 
 const val FOLDER_USER_AVATAR = "user_avatar"
 
@@ -38,7 +38,7 @@ fun initFirebase() {
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
     REF_STORAGE_ROOT = FirebaseStorage.getInstance().reference
 
-    USER = User()
+    USER = UserModel()
     CURRENT_UID = AUTH.currentUser?.uid.toString()
 }
 
@@ -64,7 +64,7 @@ inline fun putImageToStorage(uri: Uri, path: StorageReference, crossinline funct
 inline fun initUser(crossinline function: () -> Unit) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
         .addListenerForSingleValueEvent(AppValueEventListener {
-            USER = it.getValue(User::class.java) ?: User()
+            USER = it.getValue(UserModel::class.java) ?: UserModel()
             if (USER.username.isEmpty()) {
                 USER.username = CURRENT_UID
             }
@@ -118,5 +118,10 @@ fun addContactsToDatabase(arrayContacts: ArrayList<CommonModel>) {
     })
 }
 
+// Function transforms data from Firebase to CommonModel
 fun DataSnapshot.getCommonModel(): CommonModel =
     this.getValue(CommonModel::class.java) ?: CommonModel()
+
+// Function transforms data from Firebase to UserModel
+fun DataSnapshot.getUserModel(): UserModel =
+    this.getValue(UserModel::class.java) ?: UserModel()

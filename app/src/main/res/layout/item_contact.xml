@@ -13,7 +13,7 @@
         android:id="@+id/contact_avatar"
         android:layout_width="@dimen/contacts_avatar_size"
         android:layout_height="@dimen/contacts_avatar_size"
-        android:src="@drawable/avatar_user"
+        android:src="@drawable/avatar_user_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

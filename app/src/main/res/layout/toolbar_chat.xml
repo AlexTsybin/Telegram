@@ -10,13 +10,13 @@
         android:id="@+id/toolbar_chat_avatar"
         android:layout_width="@dimen/contacts_avatar_size"
         android:layout_height="@dimen/contacts_avatar_size"
-        android:src="@drawable/avatar_user"
+        android:src="@drawable/avatar_user_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/contact_fullname"
+        android:id="@+id/toolbar_chat_fullname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_margin"
@@ -26,13 +26,13 @@
         tools:text="Alex Tsybin" />
 
     <TextView
-        android:id="@+id/contact_status"
+        android:id="@+id/toolbar_chat_status"
         style="@style/secondaryText.12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_margin"
         app:layout_constraintStart_toEndOf="@id/toolbar_chat_avatar"
-        app:layout_constraintTop_toBottomOf="@id/contact_fullname"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_chat_fullname"
         tools:text="@string/online" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
