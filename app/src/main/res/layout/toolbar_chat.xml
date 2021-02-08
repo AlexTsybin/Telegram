@@ -3,14 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/ripple_effect"
-    android:clickable="true"
-    android:focusable="true"
-    android:padding="@dimen/default_margin">
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorPrimary">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/contact_avatar"
+        android:id="@+id/toolbar_chat_avatar"
         android:layout_width="@dimen/contacts_avatar_size"
         android:layout_height="@dimen/contacts_avatar_size"
         android:src="@drawable/avatar_user"
@@ -23,9 +20,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_margin"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/contact_avatar"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintStart_toEndOf="@id/toolbar_chat_avatar"
+        app:layout_constraintTop_toTopOf="@id/toolbar_chat_avatar"
         tools:text="Alex Tsybin" />
 
     <TextView
@@ -34,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_margin"
-        app:layout_constraintStart_toEndOf="@id/contact_avatar"
+        app:layout_constraintStart_toEndOf="@id/toolbar_chat_avatar"
         app:layout_constraintTop_toBottomOf="@id/contact_fullname"
         tools:text="@string/online" />
 

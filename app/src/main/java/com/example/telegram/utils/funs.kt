@@ -6,13 +6,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.telegram.R
-import com.example.telegram.activities.RegisterActivity
-import com.example.telegram.ui.fragments.ChatsFragment
 import com.squareup.picasso.Picasso
-import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 fun showToast(message: String) {
@@ -28,19 +24,19 @@ fun AppCompatActivity.changeActivity(activity: AppCompatActivity) {
 fun AppCompatActivity.replaceFragment(fragment: Fragment, addToStack: Boolean = true) {
     if (addToStack) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.dataContainer, fragment)
+            .replace(R.id.data_container, fragment)
             .addToBackStack(fragment.tag)
             .commit()
     } else {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.dataContainer, fragment)
+            .replace(R.id.data_container, fragment)
             .commit()
     }
 }
 
 fun Fragment.replaceFragment(fragment: Fragment) {
     this.fragmentManager?.beginTransaction()
-        ?.replace(R.id.dataContainer, fragment)
+        ?.replace(R.id.data_container, fragment)
         ?.addToBackStack(fragment.tag)
         ?.commit()
 }
@@ -54,6 +50,6 @@ fun hideKeyboard() {
 fun ImageView.downloadAndSetImage(url: String){
     Picasso.get()
         .load(url)
-        .placeholder(R.drawable.user_avatar)
+        .placeholder(R.drawable.avatar_user)
         .into(this)
 }
