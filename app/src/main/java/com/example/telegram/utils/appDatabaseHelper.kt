@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
@@ -23,6 +24,7 @@ const val NODE_USERS = "users"
 const val NODE_USERNAMES = "usernames"
 const val NODE_PHONES = "phones"
 const val NODE_CONTACTS = "contacts"
+const val NODE_MESSAGES = "messages"
 
 const val USER_ID = "id"
 const val USER_PHONE = "phone"
@@ -31,6 +33,14 @@ const val USER_FULLNAME = "fullname"
 const val USER_BIO = "bio"
 const val USER_AVATAR_URL = "avatarUrl"
 const val USER_STATE = "state"
+
+// Chat fields
+const val MESSAGE_TEXT = "messageText"
+const val MESSAGE_TYPE = "messageType"
+const val MESSAGE_SENDER = "messageSender"
+const val MESSAGE_TIMESTAMP = "timeStamp"
+
+const val MESSAGE_TYPE_TEXT = "text"
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
@@ -100,3 +110,23 @@ fun DataSnapshot.getCommonModel(): CommonModel =
 // Function transforms data from Firebase to UserModel
 fun DataSnapshot.getUserModel(): UserModel =
     this.getValue(UserModel::class.java) ?: UserModel()
+
+fun sendMessage(message: String, contactId: String, messageTypeText: String, function: () -> Unit) {
+    val refCurrentUser = "$NODE_MESSAGES/$CURRENT_UID/$contactId"
+    val refContactUser = "$NODE_MESSAGES/$contactId/$CURRENT_UID"
+
+    val messageKey = REF_DATABASE_ROOT.child(refCurrentUser).push().key
+    val mapMessage = hashMapOf<String, Any>()
+    mapMessage[MESSAGE_SENDER] = CURRENT_UID
+    mapMessage[MESSAGE_TEXT] = message
+    mapMessage[MESSAGE_TYPE] = messageTypeText
+    mapMessage[MESSAGE_TIMESTAMP] = ServerValue.TIMESTAMP
+
+    val mapDialog = hashMapOf<String, Any>()
+    mapDialog["$refCurrentUser/$messageKey"] = mapMessage
+    mapDialog["$refContactUser/$messageKey"] = mapMessage
+
+    REF_DATABASE_ROOT.updateChildren(mapDialog)
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast(it.message.toString()) }
+}

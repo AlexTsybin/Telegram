@@ -12,14 +12,14 @@
         android:layout_height="0dp"
         android:background="@color/material_drawer_primary_light"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/chat_input"
+        app:layout_constraintBottom_toTopOf="@id/chat_message_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_message" />
 
     <EditText
-        android:id="@+id/chat_input"
+        android:id="@+id/chat_message_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/message"
@@ -41,6 +41,6 @@
         android:src="@drawable/ic_send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/chat_input" />
+        app:layout_constraintTop_toTopOf="@id/chat_message_input" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

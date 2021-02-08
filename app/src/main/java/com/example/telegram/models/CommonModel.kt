@@ -7,5 +7,11 @@ data class CommonModel(
     var phone: String = "",
     var bio: String = "",
     var state: String = "",
-    var avatarUrl: String = "empty" // default link for Picasso
+    var avatarUrl: String = "empty", // default link for Picasso
+
+    // Chat fields
+    var messageText: String = "",
+    var messageType: String = "",
+    var messageSender: String = "",
+    var timeStamp: String = ""
 )

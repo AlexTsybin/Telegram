@@ -7,13 +7,15 @@ import com.example.telegram.models.UserModel
 import com.example.telegram.utils.*
 import com.google.firebase.database.DatabaseReference
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.fragment_single_chat.*
 import kotlinx.android.synthetic.main.toolbar_chat.view.*
 
-class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layout.fragment_single_chat) {
+class SingleChatFragment(private val contact: CommonModel) :
+    BaseFragment(R.layout.fragment_single_chat) {
 
     private lateinit var mListenerChatToolbar: AppValueEventListener
-    private lateinit var mReceivedContact:UserModel
-    private lateinit var mToolbarChat:View
+    private lateinit var mReceivedContact: UserModel
+    private lateinit var mToolbarChat: View
     private lateinit var mRefContact: DatabaseReference
 
     override fun onResume() {
@@ -27,10 +29,21 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
 
         mRefContact = REF_DATABASE_ROOT.child(NODE_USERS).child(contact.id)
         mRefContact.addValueEventListener(mListenerChatToolbar)
+
+        send_message_image.setOnClickListener {
+            val message = chat_message_input.text.toString()
+            if (message.isEmpty()) {
+                showToast(getString(R.string.chat_message_warning))
+            } else {
+                sendMessage(message, contact.id, MESSAGE_TYPE_TEXT) {
+                    chat_message_input.setText("")
+                }
+            }
+        }
     }
 
     private fun initToolbarChat() {
-        if (mReceivedContact.fullname.isEmpty()){
+        if (mReceivedContact.fullname.isEmpty()) {
             mToolbarChat.toolbar_chat_fullname.text = contact.fullname
         } else {
             mToolbarChat.toolbar_chat_fullname.text = mReceivedContact.fullname
@@ -43,5 +56,6 @@ class SingleChatFragment(private val contact: CommonModel) : BaseFragment(R.layo
         super.onPause()
         mToolbarChat.visibility = View.GONE
         mRefContact.removeEventListener(mListenerChatToolbar)
+        hideKeyboard()
     }
 }
