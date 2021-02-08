@@ -17,24 +17,24 @@
 
         <TextView
             android:id="@+id/chat_sent_message"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_sent_message"
-            android:gravity="end"
             android:padding="@dimen/xsmall_margin"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="@id/sent_messages_block"
-            app:layout_constraintTop_toTopOf="@id/sent_messages_block"
+            android:gravity="end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Hello World" />
 
         <TextView
             android:id="@+id/sent_message_time"
+            style="@style/secondaryText.12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/xsmall_margin"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@id/chat_sent_message"
-            app:layout_constraintEnd_toStartOf="@id/chat_sent_message"
+            app:layout_constraintTop_toBottomOf="@id/chat_sent_message"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="21:45" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -50,24 +50,24 @@
 
         <TextView
             android:id="@+id/chat_received_message"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_received_message"
             android:gravity="start"
             android:padding="@dimen/xsmall_margin"
             android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@id/received_messages_block"
-            app:layout_constraintTop_toTopOf="@id/received_messages_block"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Hello World" />
 
         <TextView
             android:id="@+id/received_message_time"
+            style="@style/secondaryText.12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/xsmall_margin"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@id/chat_received_message"
-            app:layout_constraintStart_toEndOf="@id/chat_received_message"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chat_received_message"
             tools:text="21:45" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
