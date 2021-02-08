@@ -17,5 +17,6 @@
     <dimen name="xxxxlarge_margin">64dp</dimen>
 
     <dimen name="settings_avatar_size">56dp</dimen>
+    <dimen name="contacts_avatar_size">44dp</dimen>
     <dimen name="settings_header_height">100dp</dimen>
 </resources>

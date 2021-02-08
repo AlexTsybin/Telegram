@@ -11,8 +11,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/contact_avatar"
-        android:layout_width="@dimen/settings_avatar_size"
-        android:layout_height="@dimen/settings_avatar_size"
+        android:layout_width="@dimen/contacts_avatar_size"
+        android:layout_height="@dimen/contacts_avatar_size"
         android:src="@drawable/user_avatar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,14 +22,18 @@
         android:id="@+id/contact_fullname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/contact_avatar"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Alex Tsybin" />
 
     <TextView
+        android:id="@+id/contact_status"
+        style="@style/secondaryText.12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_margin"
         app:layout_constraintStart_toEndOf="@id/contact_avatar"
         app:layout_constraintTop_toBottomOf="@id/contact_fullname"
         tools:text="@string/online" />

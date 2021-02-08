@@ -26,4 +26,5 @@
     <string name="users_bio_updated">User\'s bio updated</string>
     <string name="data_updated">Data updated</string>
     <string name="contacts">Contacts</string>
+    <string name="settings">Settings</string>
 </resources>
