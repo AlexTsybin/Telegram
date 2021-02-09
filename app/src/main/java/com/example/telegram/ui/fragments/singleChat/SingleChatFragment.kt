@@ -1,6 +1,7 @@
 package com.example.telegram.ui.fragments.singleChat
 
 import android.view.View
+import android.widget.AbsListView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.R
 import com.example.telegram.models.CommonModel
@@ -25,8 +26,11 @@ class SingleChatFragment(private val contact: CommonModel) :
     private lateinit var mRefMessages: DatabaseReference
     private lateinit var mAdapter: SingleChatAdapter
     private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mMessagesListener: ChildEventListener
-    private var mMessagesList = mutableListOf<CommonModel>()
+    private lateinit var mMessagesListener: AppChildEventListener
+    private var mMessagesCount = 20
+    private var mIsScroll = false
+    private var mIsScrollToEnd = true
+    private var mListenersList = mutableListOf<AppChildEventListener>()
 
     override fun onResume() {
         super.onResume()
@@ -43,16 +47,45 @@ class SingleChatFragment(private val contact: CommonModel) :
             .child(contact.id)
         mRecyclerView.adapter = mAdapter
 
-        mMessagesListener = AppChildEventListener{
+        mMessagesListener = AppChildEventListener {
             mAdapter.addItem(it.getCommonModel())
-            mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
+            if (mIsScrollToEnd){
+                mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
+            }
         }
 
-        mRefMessages.addChildEventListener(mMessagesListener)
+        mRefMessages.limitToLast(mMessagesCount).addChildEventListener(mMessagesListener)
+        mListenersList.add(mMessagesListener)
+
+        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                    mIsScroll = true
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (mIsScroll && dy < 0){
+                    updateData()
+                }
+            }
+        })
+    }
+
+    private fun updateData() {
+        mIsScrollToEnd = false
+        mIsScroll = false
+        mMessagesCount += 20
+        mRefMessages.limitToLast(mMessagesCount).addChildEventListener(mMessagesListener)
+        mListenersList.add(mMessagesListener)
     }
 
     private fun initSendMessage() {
         send_message_image.setOnClickListener {
+            mIsScrollToEnd = true
             val message = chat_message_input.text.toString()
             if (message.isEmpty()) {
                 showToast(getString(R.string.chat_message_warning))
@@ -90,7 +123,9 @@ class SingleChatFragment(private val contact: CommonModel) :
         super.onPause()
         mToolbarChat.visibility = View.GONE
         mRefContact.removeEventListener(mListenerChatToolbar)
-        mRefMessages.removeEventListener(mMessagesListener)
+        mListenersList.forEach {
+            mRefMessages.removeEventListener(it)
+        }
         hideKeyboard()
     }
 }
