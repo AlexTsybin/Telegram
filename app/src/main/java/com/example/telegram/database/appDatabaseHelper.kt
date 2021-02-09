@@ -20,6 +20,7 @@ lateinit var CURRENT_UID: String
 lateinit var USER: UserModel
 
 const val FOLDER_USER_AVATAR = "user_avatar"
+const val FOLDER_MESSAGE_IMAGE = "message_image"
 
 const val NODE_USERS = "users"
 const val NODE_USERNAMES = "usernames"
@@ -40,8 +41,7 @@ const val MESSAGE_TEXT = "messageText"
 const val MESSAGE_TYPE = "messageType"
 const val MESSAGE_SENDER = "messageSender"
 const val MESSAGE_TIMESTAMP = "timeStamp"
-
-const val MESSAGE_TYPE_TEXT = "text"
+const val MESSAGE_IMAGE_URL = "imageUrl"
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
@@ -180,4 +180,23 @@ private fun deletePreviousUsername(newUsername: String) {
                 showToast(it.exception?.message.toString())
             }
         }
+}
+
+fun saveImageToDatabase(contactId: String, imageUrl: String, messageKey: String) {
+    val refCurrentUser = "$NODE_MESSAGES/$CURRENT_UID/$contactId"
+    val refContactUser = "$NODE_MESSAGES/$contactId/$CURRENT_UID"
+
+    val mapMessage = hashMapOf<String, Any>()
+    mapMessage[USER_ID] = messageKey
+    mapMessage[MESSAGE_SENDER] = CURRENT_UID
+    mapMessage[MESSAGE_TYPE] = MESSAGE_TYPE_IMAGE
+    mapMessage[MESSAGE_TIMESTAMP] = ServerValue.TIMESTAMP
+    mapMessage[MESSAGE_IMAGE_URL] = imageUrl
+
+    val mapDialog = hashMapOf<String, Any>()
+    mapDialog["$refCurrentUser/$messageKey"] = mapMessage
+    mapDialog["$refContactUser/$messageKey"] = mapMessage
+
+    REF_DATABASE_ROOT.updateChildren(mapDialog)
+        .addOnFailureListener { showToast(it.message.toString()) }
 }

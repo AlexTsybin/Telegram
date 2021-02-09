@@ -30,4 +30,5 @@
     <string name="message">Message</string>
     <string name="send_message_cd">Send message</string>
     <string name="chat_message_warning">Chat message shouldn\'t be empty</string>
+    <string name="send_attachment">Send attachment</string>
 </resources>

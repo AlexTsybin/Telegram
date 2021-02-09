@@ -1,7 +1,10 @@
 package com.example.telegram.ui.fragments.singleChat
 
+import android.app.Activity
+import android.content.Intent
 import android.view.View
 import android.widget.AbsListView
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.R
@@ -9,11 +12,11 @@ import com.example.telegram.models.CommonModel
 import com.example.telegram.models.UserModel
 import com.example.telegram.ui.fragments.BaseFragment
 import com.example.telegram.utils.*
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_single_chat.*
 import kotlinx.android.synthetic.main.toolbar_chat.view.*
 
@@ -43,6 +46,25 @@ class SingleChatFragment(private val contact: CommonModel) :
 
     private fun initFields() {
         mLayoutManager = LinearLayoutManager(this.context)
+        chat_message_input.addTextChangedListener(AppTextWatcher {
+            val msg = chat_message_input.text.toString()
+            if (msg.isEmpty()) {
+                send_attach_btn.visibility = View.VISIBLE
+                send_message_btn.visibility = View.GONE
+            } else {
+                send_attach_btn.visibility = View.GONE
+                send_message_btn.visibility = View.VISIBLE
+            }
+        })
+
+        send_attach_btn.setOnClickListener { sendAtachment() }
+    }
+
+    private fun sendAtachment() {
+        CropImage.activity()
+            .setAspectRatio(1, 1)
+            .setRequestedSize(250, 250)
+            .start(APP_ACTIVITY, this)
     }
 
     private fun initMessagesList() {
@@ -97,7 +119,7 @@ class SingleChatFragment(private val contact: CommonModel) :
     }
 
     private fun initSendMessage() {
-        send_message_image.setOnClickListener {
+        send_message_btn.setOnClickListener {
             mIsScrollToEnd = true
             var message = chat_message_input.text.toString()
             if (message.isEmpty() || message.isBlank()) {
@@ -131,6 +153,23 @@ class SingleChatFragment(private val contact: CommonModel) :
         }
         mToolbarChat.toolbar_chat_avatar.downloadAndSetImage(mReceivedContact.avatarUrl)
         mToolbarChat.toolbar_chat_status.text = mReceivedContact.state
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
+            val uri = CropImage.getActivityResult(data).uri
+            val messageKey =
+                REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID).child(contact.id)
+                    .push().key.toString()
+            val path = REF_STORAGE_ROOT.child(FOLDER_MESSAGE_IMAGE).child(messageKey)
+
+            putImageToStorage(uri, path) {
+                getUrlFromStorage(path) {
+                    saveImageToDatabase(contact.id, it, messageKey)
+                }
+            }
+        }
     }
 
     override fun onPause() {
