@@ -102,7 +102,7 @@ class SingleChatFragment(private val contact: CommonModel) :
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                var firstVisiblePosition = mLayoutManager.findFirstVisibleItemPosition()
+                val firstVisiblePosition = mLayoutManager.findFirstVisibleItemPosition()
                 if (mIsScroll && dy < 0 && firstVisiblePosition <= 5) {
                     updateData()
                 }
@@ -167,6 +167,7 @@ class SingleChatFragment(private val contact: CommonModel) :
             putImageToStorage(uri, path) {
                 getUrlFromStorage(path) {
                     saveImageToDatabase(contact.id, it, messageKey)
+                    mIsScrollToEnd = true
                 }
             }
         }
