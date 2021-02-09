@@ -18,19 +18,32 @@ import java.util.*
 
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewHolder>() {
 
-    private var mMessagesCacheList = emptyList<CommonModel>()
+    private var mMessagesCacheList = mutableListOf<CommonModel>()
     private lateinit var mDiffResult: DiffUtil.DiffResult
 
-    fun addItem(item: CommonModel) {
-        val newList = mutableListOf<CommonModel>()
-        newList.addAll(mMessagesCacheList)
-        if (!newList.contains(item)){
-            newList.add(item)
+    fun addItem(item: CommonModel, toBottom: Boolean) {
+        if (toBottom){
+            if (!mMessagesCacheList.contains(item)){
+                mMessagesCacheList.add(item)
+                notifyItemInserted(mMessagesCacheList.size)
+            }
+        } else {
+            if (!mMessagesCacheList.contains(item)){
+                mMessagesCacheList.add(item)
+                mMessagesCacheList.sortBy { it.timeStamp.toString() }
+                notifyItemInserted(0)
+            }
         }
-        newList.sortBy { it.timeStamp.toString() }
-        mDiffResult = DiffUtil.calculateDiff(DiffUtilCallback(mMessagesCacheList, newList))
-        mDiffResult.dispatchUpdatesTo(this)
-        mMessagesCacheList = newList
+
+//        val newList = mutableListOf<CommonModel>()
+//        newList.addAll(mMessagesCacheList)
+//        if (!newList.contains(item)){
+//            newList.add(item)
+//        }
+//        newList.sortBy { it.timeStamp.toString() }
+//        mDiffResult = DiffUtil.calculateDiff(DiffUtilCallback(mMessagesCacheList, newList))
+//        mDiffResult.dispatchUpdatesTo(this)
+//        mMessagesCacheList = newList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleChatViewHolder {

@@ -30,7 +30,6 @@ class SingleChatFragment(private val contact: CommonModel) :
     private var mMessagesCount = 20
     private var mIsScroll = false
     private var mIsScrollToEnd = true
-    private var mListenersList = mutableListOf<AppChildEventListener>()
 
     override fun onResume() {
         super.onResume()
@@ -48,14 +47,13 @@ class SingleChatFragment(private val contact: CommonModel) :
         mRecyclerView.adapter = mAdapter
 
         mMessagesListener = AppChildEventListener {
-            mAdapter.addItem(it.getCommonModel())
+            mAdapter.addItem(it.getCommonModel(), mIsScrollToEnd)
             if (mIsScrollToEnd){
                 mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
             }
         }
 
         mRefMessages.limitToLast(mMessagesCount).addChildEventListener(mMessagesListener)
-        mListenersList.add(mMessagesListener)
 
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -79,8 +77,8 @@ class SingleChatFragment(private val contact: CommonModel) :
         mIsScrollToEnd = false
         mIsScroll = false
         mMessagesCount += 20
+        mRefMessages.removeEventListener(mMessagesListener)
         mRefMessages.limitToLast(mMessagesCount).addChildEventListener(mMessagesListener)
-        mListenersList.add(mMessagesListener)
     }
 
     private fun initSendMessage() {
@@ -123,9 +121,7 @@ class SingleChatFragment(private val contact: CommonModel) :
         super.onPause()
         mToolbarChat.visibility = View.GONE
         mRefContact.removeEventListener(mListenerChatToolbar)
-        mListenersList.forEach {
-            mRefMessages.removeEventListener(it)
-        }
+        mRefMessages.removeEventListener(mMessagesListener)
         hideKeyboard()
     }
 }
