@@ -118,6 +118,7 @@ fun sendMessage(message: String, contactId: String, messageTypeText: String, fun
 
     val messageKey = REF_DATABASE_ROOT.child(refCurrentUser).push().key
     val mapMessage = hashMapOf<String, Any>()
+    mapMessage[USER_ID] = messageKey.toString()
     mapMessage[MESSAGE_SENDER] = CURRENT_UID
     mapMessage[MESSAGE_TEXT] = message
     mapMessage[MESSAGE_TYPE] = messageTypeText

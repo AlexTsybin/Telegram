@@ -21,20 +21,7 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewH
     private var mMessagesCacheList = mutableListOf<CommonModel>()
     private lateinit var mDiffResult: DiffUtil.DiffResult
 
-    fun addItem(item: CommonModel, toBottom: Boolean) {
-        if (toBottom){
-            if (!mMessagesCacheList.contains(item)){
-                mMessagesCacheList.add(item)
-                notifyItemInserted(mMessagesCacheList.size)
-            }
-        } else {
-            if (!mMessagesCacheList.contains(item)){
-                mMessagesCacheList.add(item)
-                mMessagesCacheList.sortBy { it.timeStamp.toString() }
-                notifyItemInserted(0)
-            }
-        }
-
+//    fun addItem(item: CommonModel, toBottom: Boolean) {
 //        val newList = mutableListOf<CommonModel>()
 //        newList.addAll(mMessagesCacheList)
 //        if (!newList.contains(item)){
@@ -44,6 +31,23 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewH
 //        mDiffResult = DiffUtil.calculateDiff(DiffUtilCallback(mMessagesCacheList, newList))
 //        mDiffResult.dispatchUpdatesTo(this)
 //        mMessagesCacheList = newList
+//    }
+
+    fun addItemToTop(item: CommonModel, onSuccess: () -> Unit){
+        if (!mMessagesCacheList.contains(item)){
+            mMessagesCacheList.add(item)
+            mMessagesCacheList.sortBy { it.timeStamp.toString() }
+            notifyItemInserted(0)
+        }
+        onSuccess()
+    }
+
+    fun addItemToBottom(item: CommonModel, onSuccess: () -> Unit){
+        if (!mMessagesCacheList.contains(item)){
+            mMessagesCacheList.add(item)
+            notifyItemInserted(mMessagesCacheList.size)
+        }
+        onSuccess()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleChatViewHolder {

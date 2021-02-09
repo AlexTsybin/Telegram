@@ -14,4 +14,10 @@ data class CommonModel(
     var messageType: String = "",
     var messageSender: String = "",
     var timeStamp: Any = ""
-)
+
+
+) {
+    override fun equals(other: Any?): Boolean {
+        return (other as CommonModel).id == id
+    }
+}

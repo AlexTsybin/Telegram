@@ -2,6 +2,7 @@ package com.example.telegram.ui.fragments.singleChat
 
 import android.view.View
 import android.widget.AbsListView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.R
 import com.example.telegram.models.CommonModel
@@ -27,15 +28,21 @@ class SingleChatFragment(private val contact: CommonModel) :
     private lateinit var mAdapter: SingleChatAdapter
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mMessagesListener: AppChildEventListener
+    private lateinit var mLayoutManager: LinearLayoutManager
     private var mMessagesCount = 20
     private var mIsScroll = false
     private var mIsScrollToEnd = true
 
     override fun onResume() {
         super.onResume()
+        initFields()
         initToolbar()
         initSendMessage()
         initMessagesList()
+    }
+
+    private fun initFields() {
+        mLayoutManager = LinearLayoutManager(this.context)
     }
 
     private fun initMessagesList() {
@@ -45,11 +52,18 @@ class SingleChatFragment(private val contact: CommonModel) :
             .child(CURRENT_UID)
             .child(contact.id)
         mRecyclerView.adapter = mAdapter
+        mRecyclerView.layoutManager = mLayoutManager
+        mRecyclerView.isNestedScrollingEnabled = false
+        mRecyclerView.setHasFixedSize(true)
 
         mMessagesListener = AppChildEventListener {
-            mAdapter.addItem(it.getCommonModel(), mIsScrollToEnd)
-            if (mIsScrollToEnd){
-                mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
+            val message = it.getCommonModel()
+            if (mIsScrollToEnd) {
+                mAdapter.addItemToBottom(message) {
+                    mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
+                }
+            } else {
+                mAdapter.addItemToTop(message) {}
             }
         }
 
@@ -59,14 +73,15 @@ class SingleChatFragment(private val contact: CommonModel) :
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL){
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
                     mIsScroll = true
                 }
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (mIsScroll && dy < 0){
+                var firstVisiblePosition = mLayoutManager.findFirstVisibleItemPosition()
+                if (mIsScroll && dy < 0 && firstVisiblePosition <= 5) {
                     updateData()
                 }
             }
@@ -84,10 +99,11 @@ class SingleChatFragment(private val contact: CommonModel) :
     private fun initSendMessage() {
         send_message_image.setOnClickListener {
             mIsScrollToEnd = true
-            val message = chat_message_input.text.toString()
-            if (message.isEmpty()) {
+            var message = chat_message_input.text.toString()
+            if (message.isEmpty() || message.isBlank()) {
                 showToast(getString(R.string.chat_message_warning))
             } else {
+                message = message.trim()
                 sendMessage(message, contact.id, MESSAGE_TYPE_TEXT) {
                     chat_message_input.setText("")
                 }
