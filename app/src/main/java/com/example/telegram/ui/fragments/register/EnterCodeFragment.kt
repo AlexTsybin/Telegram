@@ -1,9 +1,8 @@
-package com.example.telegram.ui.fragments
+package com.example.telegram.ui.fragments.register
 
 import androidx.fragment.app.Fragment
 import com.example.telegram.MainActivity
 import com.example.telegram.R
-import com.example.telegram.activities.RegisterActivity
 import com.example.telegram.utils.*
 import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.android.synthetic.main.fragment_enter_code.*
@@ -13,13 +12,18 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) :
 
     override fun onStart() {
         super.onStart()
-        (activity as RegisterActivity).title = phoneNumber
+        APP_ACTIVITY.title = phoneNumber
         register_code_input.addTextChangedListener(AppTextWatcher {
             val string = register_code_input.text.toString()
             if (string.length == 6) {
                 enterCode()
             }
         })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        hideKeyboard()
     }
 
     private fun enterCode() {
@@ -40,7 +44,7 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) :
                             .addOnFailureListener { showToast(it.message.toString()) }
                             .addOnSuccessListener {
                                 showToast("Welcome to Telegram!")
-                                (activity as RegisterActivity).changeActivity(MainActivity())
+                                restartActivity()
                             }
                     }
             } else {

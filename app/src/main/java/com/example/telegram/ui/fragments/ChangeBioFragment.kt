@@ -13,13 +13,6 @@ class ChangeBioFragment : BaseChangeFragment(R.layout.fragment_change_bio) {
 
     override fun applyChanges() {
         val newBio = settings_change_bio_et.text.toString()
-        REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(USER_BIO).setValue(newBio)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    showToast(getString(R.string.users_bio_updated))
-                    USER.bio = newBio
-                    fragmentManager?.popBackStack()
-                }
-            }
+        setBioToDatabase(newBio)
     }
 }

@@ -1,6 +1,7 @@
 package com.example.telegram.utils
 
 import android.net.Uri
+import com.example.telegram.R
 import com.example.telegram.models.CommonModel
 import com.example.telegram.models.UserModel
 import com.google.firebase.auth.FirebaseAuth
@@ -129,4 +130,53 @@ fun sendMessage(message: String, contactId: String, messageTypeText: String, fun
     REF_DATABASE_ROOT.updateChildren(mapDialog)
         .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
+}
+
+fun setBioToDatabase(newBio: String) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(USER_BIO)
+        .setValue(newBio)
+        .addOnCompleteListener {
+            if (it.isSuccessful) {
+                showToast(APP_ACTIVITY.getString(R.string.users_bio_updated))
+                USER.bio = newBio
+                APP_ACTIVITY.supportFragmentManager.popBackStack()
+            }
+        }
+}
+
+fun setNameToDatabase(fullname: String) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(USER_FULLNAME)
+        .setValue(fullname)
+        .addOnCompleteListener {
+            if (it.isSuccessful) {
+                showToast(APP_ACTIVITY.getString(R.string.toast_name_updated))
+                USER.fullname = fullname
+                APP_ACTIVITY.mAppDrawer.updateHeader()
+                APP_ACTIVITY.supportFragmentManager.popBackStack()
+            }
+        }
+}
+
+fun updateCurrentUsername(newUsername: String) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(USER_USERNAME).setValue(newUsername)
+        .addOnCompleteListener {
+            if (it.isSuccessful) {
+                deletePreviousUsername(newUsername)
+            } else {
+                showToast(it.exception?.message.toString())
+            }
+        }
+}
+
+private fun deletePreviousUsername(newUsername: String) {
+    REF_DATABASE_ROOT.child(NODE_USERNAMES).child(USER.username).removeValue()
+        .addOnCompleteListener {
+            if (it.isSuccessful) {
+                showToast(APP_ACTIVITY.getString(R.string.toast_username_updated))
+                APP_ACTIVITY.supportFragmentManager.popBackStack()
+                USER.username = newUsername
+            } else {
+                showToast(it.exception?.message.toString())
+            }
+        }
 }

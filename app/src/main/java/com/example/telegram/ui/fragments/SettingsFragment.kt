@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import com.example.telegram.R
-import com.example.telegram.activities.RegisterActivity
 import com.example.telegram.utils.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -61,7 +60,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     private fun logOut() {
         AppStates.updateState(AppStates.OFFLINE)
         AUTH.signOut()
-        APP_ACTIVITY.changeActivity(RegisterActivity())
+        restartActivity()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import com.example.telegram.activities.RegisterActivity
 import com.example.telegram.databinding.ActivityMainBinding
-import com.example.telegram.ui.fragments.ChatsFragment
+import com.example.telegram.ui.fragments.MainFragment
+import com.example.telegram.ui.fragments.register.AddPhoneNumberFragment
 import com.example.telegram.ui.objects.AppDrawer
 import com.example.telegram.utils.*
 import kotlinx.coroutines.CoroutineScope
@@ -46,12 +46,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFunc() {
+        setSupportActionBar(mToolbar)
         if (AUTH.currentUser == null) {
-            changeActivity(RegisterActivity())
+            replaceFragment(AddPhoneNumberFragment(), false)
         } else {
-            setSupportActionBar(mToolbar)
             mAppDrawer.create()
-            replaceFragment(ChatsFragment(), false)
+            replaceFragment(MainFragment(), false)
         }
     }
 

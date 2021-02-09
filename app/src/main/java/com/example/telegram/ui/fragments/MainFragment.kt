@@ -7,10 +7,11 @@ import com.example.telegram.utils.APP_ACTIVITY
  /**
  * A simple [Fragment] subclass.
  */
-class ChatsFragment : Fragment(R.layout.fragment_chats) {
+class MainFragment : Fragment(R.layout.fragment_chats) {
 
     override fun onResume() {
         super.onResume()
         APP_ACTIVITY.title = getString(R.string.app_name)
+        APP_ACTIVITY.mAppDrawer.enableDrawer()
     }
 }

@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.telegram.MainActivity
 import com.example.telegram.R
 import com.example.telegram.models.CommonModel
 import com.squareup.picasso.Picasso
@@ -18,30 +19,23 @@ fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
 }
 
-fun AppCompatActivity.changeActivity(activity: AppCompatActivity) {
-    val intent = Intent(this, activity::class.java)
-    startActivity(intent)
-    this.finish()
+fun restartActivity() {
+    val intent = Intent(APP_ACTIVITY, MainActivity::class.java)
+    APP_ACTIVITY.startActivity(intent)
+    APP_ACTIVITY.finish()
 }
 
-fun AppCompatActivity.replaceFragment(fragment: Fragment, addToStack: Boolean = true) {
+fun replaceFragment(fragment: Fragment, addToStack: Boolean = true) {
     if (addToStack) {
-        supportFragmentManager.beginTransaction()
+        APP_ACTIVITY.supportFragmentManager.beginTransaction()
             .replace(R.id.data_container, fragment)
             .addToBackStack(fragment.tag)
             .commit()
     } else {
-        supportFragmentManager.beginTransaction()
+        APP_ACTIVITY.supportFragmentManager.beginTransaction()
             .replace(R.id.data_container, fragment)
             .commit()
     }
-}
-
-fun Fragment.replaceFragment(fragment: Fragment) {
-    this.fragmentManager?.beginTransaction()
-        ?.replace(R.id.data_container, fragment)
-        ?.addToBackStack(fragment.tag)
-        ?.commit()
 }
 
 fun hideKeyboard() {
