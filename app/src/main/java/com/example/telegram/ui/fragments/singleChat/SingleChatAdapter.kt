@@ -5,10 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.R
 import com.example.telegram.models.CommonModel
 import com.example.telegram.utils.CURRENT_UID
+import com.example.telegram.utils.DiffUtilCallback
 import com.example.telegram.utils.timeStampToTime
 import kotlinx.android.synthetic.main.item_message.view.*
 import java.text.SimpleDateFormat
@@ -16,11 +18,20 @@ import java.util.*
 
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewHolder>() {
 
-    var mMessagesCacheList = emptyList<CommonModel>()
+    private var mMessagesCacheList = emptyList<CommonModel>()
+    private lateinit var mDiffResult: DiffUtil.DiffResult
 
     fun setList(list: List<CommonModel>) {
-        mMessagesCacheList = list
-        notifyDataSetChanged()
+        //notifyDataSetChanged()
+    }
+
+    fun addItem(item: CommonModel) {
+        val newList = mutableListOf<CommonModel>()
+        newList.addAll(mMessagesCacheList)
+        newList.add(item)
+        mDiffResult = DiffUtil.calculateDiff(DiffUtilCallback(mMessagesCacheList, newList))
+        mDiffResult.dispatchUpdatesTo(this)
+        mMessagesCacheList = newList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleChatViewHolder {
