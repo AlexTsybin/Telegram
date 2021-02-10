@@ -1,8 +1,8 @@
 package com.example.telegram.ui.fragments.register
 
 import androidx.fragment.app.Fragment
-import com.example.telegram.MainActivity
 import com.example.telegram.R
+import com.example.telegram.database.*
 import com.example.telegram.utils.*
 import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.android.synthetic.main.fragment_enter_code.*

@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.R
+import com.example.telegram.database.*
 import com.example.telegram.models.CommonModel
 import com.example.telegram.models.UserModel
 import com.example.telegram.ui.fragments.BaseFragment
@@ -88,7 +89,13 @@ class SingleChatFragment(private val contact: CommonModel) :
                             )
                         )
                         mAppVoiceRecorder.stopRecord { file, messageKey ->
-                            uploadFileToStorage(Uri.fromFile(file), messageKey)
+                            uploadFileToStorage(
+                                Uri.fromFile(file),
+                                messageKey,
+                                contact.id,
+                                MESSAGE_TYPE_VOICE
+                            )
+                            mIsScrollToEnd = true
                         }
                     }
                 }
@@ -197,14 +204,8 @@ class SingleChatFragment(private val contact: CommonModel) :
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
             val uri = CropImage.getActivityResult(data).uri
             val messageKey = getMessageKey(contact.id)
-            val path = REF_STORAGE_ROOT.child(FOLDER_MESSAGE_IMAGE).child(messageKey)
-
-            putImageToStorage(uri, path) {
-                getUrlFromStorage(path) {
-                    saveImageToDatabase(contact.id, it, messageKey)
-                    mIsScrollToEnd = true
-                }
-            }
+            uploadFileToStorage(uri, messageKey, contact.id, MESSAGE_TYPE_IMAGE)
+            mIsScrollToEnd = true
         }
     }
 

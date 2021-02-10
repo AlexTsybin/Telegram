@@ -1,6 +1,7 @@
 package com.example.telegram.ui.fragments
 
 import com.example.telegram.R
+import com.example.telegram.database.*
 import com.example.telegram.utils.*
 import kotlinx.android.synthetic.main.fragment_change_username.*
 import java.util.*

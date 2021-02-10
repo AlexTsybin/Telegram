@@ -1,8 +1,8 @@
 package com.example.telegram.ui.fragments.register
 
 import androidx.fragment.app.Fragment
-import com.example.telegram.MainActivity
 import com.example.telegram.R
+import com.example.telegram.database.AUTH
 import com.example.telegram.utils.*
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
