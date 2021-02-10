@@ -37,12 +37,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
         AppStates.updateState(AppStates.ONLINE)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        AppStates.updateState(AppStates.OFFLINE)
     }
 
     override fun onStop() {
         super.onStop()
-        AppStates.updateState(AppStates.OFFLINE)
     }
 
     private fun initFunc() {
