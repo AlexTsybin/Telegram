@@ -35,6 +35,7 @@
     <color name="material_drawer_header_selection_subtext">#8A000000</color>
 
     <color name="main_text_color">#333333</color>
+    <color name="middle_text_color">#666666</color>
     <color name="secondary_text_color">#999999</color>
 
     <!-- OVERWRITE THESE COLORS FOR A DARK THEME -->

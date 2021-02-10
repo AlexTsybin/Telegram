@@ -47,13 +47,33 @@
             android:src="@drawable/ic_send"
             android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/send_attach_btn"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/attach_btn_block"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/send_attachment"
-            android:padding="@dimen/medium_margin"
-            android:src="@drawable/ic_attach" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/send_attach_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/send_attachment"
+                android:padding="@dimen/medium_margin"
+                android:src="@drawable/ic_attach"
+                app:layout_constraintEnd_toStartOf="@id/send_voice_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/send_voice_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/send_attachment"
+                android:padding="@dimen/medium_margin"
+                android:src="@drawable/ic_voice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
 

@@ -71,7 +71,7 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
                         holder.name.text = contact.fullname
                     }
                     if (contact.state == AppStates.ONLINE.state){
-                        holder.status.setTextColor(ContextCompat.getColor(mContacts.context, R.color.colorPrimary))
+                        holder.status.setTextColor(ContextCompat.getColor(APP_ACTIVITY, R.color.colorPrimary))
                     }
                     holder.status.text = contact.state
                     holder.avatar.downloadAndSetImage(contact.avatarUrl)
