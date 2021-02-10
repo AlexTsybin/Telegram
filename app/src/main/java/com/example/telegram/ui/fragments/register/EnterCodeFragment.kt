@@ -35,18 +35,25 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) :
                 val userMap = mutableMapOf<String, Any>()
                 userMap[USER_ID] = uid
                 userMap[USER_PHONE] = phoneNumber
-                userMap[USER_USERNAME] = uid
 
-                REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber).setValue(uid)
-                    .addOnFailureListener { showToast(it.message.toString()) }
-                    .addOnSuccessListener {
-                        REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(userMap)
+                REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
+                    .addListenerForSingleValueEvent(AppValueEventListener {
+                        if (!it.hasChild(USER_USERNAME)) {
+                            userMap[USER_USERNAME] = uid
+                        }
+
+                        REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber).setValue(uid)
                             .addOnFailureListener { showToast(it.message.toString()) }
                             .addOnSuccessListener {
-                                showToast("Welcome to Telegram!")
-                                restartActivity()
+                                REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
+                                    .updateChildren(userMap)
+                                    .addOnFailureListener { showToast(it.message.toString()) }
+                                    .addOnSuccessListener {
+                                        showToast("Welcome to Telegram!")
+                                        restartActivity()
+                                    }
                             }
-                    }
+                    })
             } else {
                 showToast(it.exception?.message.toString())
             }
