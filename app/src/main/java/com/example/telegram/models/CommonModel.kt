@@ -14,7 +14,7 @@ data class CommonModel(
     var messageType: String = "",
     var messageSender: String = "",
     var timeStamp: Any = "",
-    var imageUrl: String = "empty", // default link for Picasso
+    var fileUrl: String = "empty", // default link for Picasso
 ) {
     override fun equals(other: Any?): Boolean {
         return (other as CommonModel).id == id

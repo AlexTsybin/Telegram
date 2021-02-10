@@ -41,7 +41,7 @@ const val MESSAGE_TEXT = "messageText"
 const val MESSAGE_TYPE = "messageType"
 const val MESSAGE_SENDER = "messageSender"
 const val MESSAGE_TIMESTAMP = "timeStamp"
-const val MESSAGE_IMAGE_URL = "imageUrl"
+const val MESSAGE_FILE_URL = "fileUrl"
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
@@ -159,7 +159,8 @@ fun setNameToDatabase(fullname: String) {
 }
 
 fun updateCurrentUsername(newUsername: String) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(USER_USERNAME).setValue(newUsername)
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(USER_USERNAME)
+        .setValue(newUsername)
         .addOnCompleteListener {
             if (it.isSuccessful) {
                 deletePreviousUsername(newUsername)
@@ -191,7 +192,7 @@ fun saveImageToDatabase(contactId: String, imageUrl: String, messageKey: String)
     mapMessage[MESSAGE_SENDER] = CURRENT_UID
     mapMessage[MESSAGE_TYPE] = MESSAGE_TYPE_IMAGE
     mapMessage[MESSAGE_TIMESTAMP] = ServerValue.TIMESTAMP
-    mapMessage[MESSAGE_IMAGE_URL] = imageUrl
+    mapMessage[MESSAGE_FILE_URL] = imageUrl
 
     val mapDialog = hashMapOf<String, Any>()
     mapDialog["$refCurrentUser/$messageKey"] = mapMessage
@@ -199,4 +200,12 @@ fun saveImageToDatabase(contactId: String, imageUrl: String, messageKey: String)
 
     REF_DATABASE_ROOT.updateChildren(mapDialog)
         .addOnFailureListener { showToast(it.message.toString()) }
+}
+
+fun getMessageKey(contactId: String) =
+    REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID).child(contactId)
+        .push().key.toString()
+
+fun uploadFileToStorage(uri: Uri, messageKey: String) {
+    showToast("Record OK")
 }

@@ -12,8 +12,6 @@ import com.example.telegram.R
 import com.example.telegram.models.CommonModel
 import com.example.telegram.utils.*
 import kotlinx.android.synthetic.main.item_message.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewHolder>() {
 
@@ -70,14 +68,14 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewH
             holder.receivedImageBlock.visibility = View.GONE
             holder.sentImageBlock.visibility = View.VISIBLE
 
-            holder.sentImage.downloadAndSetImage(mMessagesCacheList[position].imageUrl)
+            holder.sentImage.downloadAndSetImage(mMessagesCacheList[position].fileUrl)
             holder.sentImageTime.text =
                 mMessagesCacheList[position].timeStamp.toString().timeStampToTime()
         } else {
             holder.receivedImageBlock.visibility = View.VISIBLE
             holder.sentImageBlock.visibility = View.GONE
 
-            holder.receivedImage.downloadAndSetImage(mMessagesCacheList[position].imageUrl)
+            holder.receivedImage.downloadAndSetImage(mMessagesCacheList[position].fileUrl)
             holder.receivedImageTime.text =
                 mMessagesCacheList[position].timeStamp.toString().timeStampToTime()
         }
