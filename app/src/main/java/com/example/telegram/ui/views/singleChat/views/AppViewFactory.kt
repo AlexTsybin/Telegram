@@ -1,8 +1,7 @@
-package com.example.telegram.ui.fragments.singleChat.views
+package com.example.telegram.ui.views.singleChat.views
 
 import com.example.telegram.models.CommonModel
 import com.example.telegram.utils.MESSAGE_TYPE_IMAGE
-import com.example.telegram.utils.MESSAGE_TYPE_TEXT
 import com.example.telegram.utils.MESSAGE_TYPE_VOICE
 
 class AppViewFactory {

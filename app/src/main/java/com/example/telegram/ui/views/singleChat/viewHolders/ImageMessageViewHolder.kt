@@ -1,4 +1,4 @@
-package com.example.telegram.ui.fragments.singleChat.viewHolders
+package com.example.telegram.ui.views.singleChat.viewHolders
 
 import android.view.View
 import android.widget.ImageView
@@ -6,12 +6,12 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.database.CURRENT_UID
-import com.example.telegram.ui.fragments.singleChat.views.MessageView
+import com.example.telegram.ui.views.singleChat.views.MessageView
 import com.example.telegram.utils.downloadAndSetImage
 import com.example.telegram.utils.timeStampToTime
 import kotlinx.android.synthetic.main.item_message_image.view.*
 
-class ImageMessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class ImageMessageViewHolder(view: View) : RecyclerView.ViewHolder(view), MessageViewHolder {
 
     // Sent image views
     private val sentImageBlock: ConstraintLayout = view.sent_image_block
@@ -23,22 +23,30 @@ class ImageMessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val receivedImage: ImageView = view.received_image
     private val receivedImageTime: TextView = view.received_image_time
 
-    fun drawImageMessage(holder: ImageMessageViewHolder, view: MessageView) {
+    override fun drawMessage(view: MessageView) {
 
         if (view.sender == CURRENT_UID) {
-            holder.receivedImageBlock.visibility = View.GONE
-            holder.sentImageBlock.visibility = View.VISIBLE
+            receivedImageBlock.visibility = View.GONE
+            sentImageBlock.visibility = View.VISIBLE
 
-            holder.sentImage.downloadAndSetImage(view.fileUrl)
-            holder.sentImageTime.text =
+            sentImage.downloadAndSetImage(view.fileUrl)
+            sentImageTime.text =
                 view.timeStamp.timeStampToTime()
         } else {
-            holder.receivedImageBlock.visibility = View.VISIBLE
-            holder.sentImageBlock.visibility = View.GONE
+            receivedImageBlock.visibility = View.VISIBLE
+            sentImageBlock.visibility = View.GONE
 
-            holder.receivedImage.downloadAndSetImage(view.fileUrl)
-            holder.receivedImageTime.text =
+            receivedImage.downloadAndSetImage(view.fileUrl)
+            receivedImageTime.text =
                 view.timeStamp.timeStampToTime()
         }
+    }
+
+    override fun onAttach(view: MessageView) {
+
+    }
+
+    override fun onDetach() {
+
     }
 }

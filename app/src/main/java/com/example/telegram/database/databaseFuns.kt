@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import java.io.File
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
@@ -154,7 +155,12 @@ private fun deletePreviousUsername(newUsername: String) {
         }
 }
 
-fun saveFileToDatabase(contactId: String, fileUrl: String, messageKey: String, messageType: String) {
+fun saveFileToDatabase(
+    contactId: String,
+    fileUrl: String,
+    messageKey: String,
+    messageType: String
+) {
     val refCurrentUser = "$NODE_MESSAGES/$CURRENT_UID/$contactId"
     val refContactUser = "$NODE_MESSAGES/$contactId/$CURRENT_UID"
 
@@ -185,4 +191,11 @@ fun uploadFileToStorage(uri: Uri, messageKey: String, contactId: String, message
             saveFileToDatabase(contactId, it, messageKey, messageType)
         }
     }
+}
+
+fun getFileFromStorage(mFile: File, fileUrl: String, function: () -> Unit) {
+    val path = REF_STORAGE_ROOT.storage.getReferenceFromUrl(fileUrl)
+    path.getFile(mFile)
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast(it.message.toString()) }
 }

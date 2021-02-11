@@ -1,4 +1,4 @@
-package com.example.telegram.ui.fragments.singleChat
+package com.example.telegram.ui.views.singleChat
 
 import android.app.Activity
 import android.content.Intent
@@ -13,8 +13,8 @@ import com.example.telegram.R
 import com.example.telegram.database.*
 import com.example.telegram.models.CommonModel
 import com.example.telegram.models.UserModel
-import com.example.telegram.ui.fragments.BaseFragment
-import com.example.telegram.ui.fragments.singleChat.views.AppViewFactory
+import com.example.telegram.ui.views.BaseFragment
+import com.example.telegram.ui.views.singleChat.views.AppViewFactory
 import com.example.telegram.utils.*
 import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
@@ -218,8 +218,9 @@ class SingleChatFragment(private val contact: CommonModel) :
         hideKeyboard()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         mAppVoiceRecorder.releaseRecorder()
+        mAdapter.onDestroy()
     }
 }

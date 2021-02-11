@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.singleChat.SingleChatFragment">
+    tools:context=".ui.views.singleChat.SingleChatFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_messages"
@@ -14,8 +14,7 @@
         app:layout_constraintBottom_toTopOf="@id/chat_message_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_message" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/chat_message_input"
