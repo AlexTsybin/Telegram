@@ -14,6 +14,7 @@ import com.example.telegram.database.*
 import com.example.telegram.models.CommonModel
 import com.example.telegram.models.UserModel
 import com.example.telegram.ui.fragments.BaseFragment
+import com.example.telegram.ui.fragments.singleChat.views.AppViewFactory
 import com.example.telegram.utils.*
 import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
@@ -125,11 +126,11 @@ class SingleChatFragment(private val contact: CommonModel) :
         mMessagesListener = AppChildEventListener {
             val message = it.getCommonModel()
             if (mIsScrollToEnd) {
-                mAdapter.addItemToBottom(message) {
+                mAdapter.addItemToBottom(AppViewFactory.getView(message)) {
                     mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
                 }
             } else {
-                mAdapter.addItemToTop(message) {}
+                mAdapter.addItemToTop(AppViewFactory.getView(message)) {}
             }
         }
 

@@ -178,8 +178,6 @@ fun getMessageKey(contactId: String) =
         .push().key.toString()
 
 fun uploadFileToStorage(uri: Uri, messageKey: String, contactId: String, messageType: String) {
-    showToast("Record OK")
-
     val path = REF_STORAGE_ROOT.child(FOLDER_FILES).child(messageKey)
 
     putFileToStorage(uri, path) {
