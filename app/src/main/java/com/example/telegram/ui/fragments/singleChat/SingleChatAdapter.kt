@@ -8,6 +8,7 @@ import com.example.telegram.database.CURRENT_UID
 import com.example.telegram.ui.fragments.singleChat.viewHolders.AppViewHolderFactory
 import com.example.telegram.ui.fragments.singleChat.viewHolders.ImageMessageViewHolder
 import com.example.telegram.ui.fragments.singleChat.viewHolders.TextMessageViewHolder
+import com.example.telegram.ui.fragments.singleChat.viewHolders.VoiceMessageViewHolder
 import com.example.telegram.ui.fragments.singleChat.views.MessageView
 import com.example.telegram.utils.downloadAndSetImage
 import com.example.telegram.utils.timeStampToTime
@@ -15,7 +16,7 @@ import com.example.telegram.utils.timeStampToTime
 class SingleChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mMessagesCacheList = mutableListOf<MessageView>()
-    private lateinit var mDiffResult: DiffUtil.DiffResult
+//    private lateinit var mDiffResult: DiffUtil.DiffResult
 
 //    fun addItem(item: CommonModel, toBottom: Boolean) {
 //        val newList = mutableListOf<CommonModel>()
@@ -52,52 +53,16 @@ class SingleChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is ImageMessageViewHolder -> drawImageMessage(holder, position)
-            is TextMessageViewHolder -> drawTextMessage(holder, position)
-            else -> {}
+            is ImageMessageViewHolder -> holder.drawImageMessage(holder, mMessagesCacheList[position])
+            is VoiceMessageViewHolder -> holder.drawVoiceMessage(holder, mMessagesCacheList[position])
+            is TextMessageViewHolder -> holder.drawTextMessage(holder, mMessagesCacheList[position])
+            else -> {
+            }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
         return mMessagesCacheList[position].getViewType()
-    }
-
-    private fun drawImageMessage(holder: ImageMessageViewHolder, position: Int) {
-
-        if (mMessagesCacheList[position].sender == CURRENT_UID) {
-            holder.receivedImageBlock.visibility = View.GONE
-            holder.sentImageBlock.visibility = View.VISIBLE
-
-            holder.sentImage.downloadAndSetImage(mMessagesCacheList[position].fileUrl)
-            holder.sentImageTime.text =
-                mMessagesCacheList[position].timeStamp.timeStampToTime()
-        } else {
-            holder.receivedImageBlock.visibility = View.VISIBLE
-            holder.sentImageBlock.visibility = View.GONE
-
-            holder.receivedImage.downloadAndSetImage(mMessagesCacheList[position].fileUrl)
-            holder.receivedImageTime.text =
-                mMessagesCacheList[position].timeStamp.timeStampToTime()
-        }
-    }
-
-    private fun drawTextMessage(holder: TextMessageViewHolder, position: Int) {
-
-        if (mMessagesCacheList[position].sender == CURRENT_UID) {
-            holder.sentMessageBlock.visibility = View.VISIBLE
-            holder.receivedMessageBlock.visibility = View.GONE
-
-            holder.sentMessage.text = mMessagesCacheList[position].text
-            holder.sentMessageTime.text =
-                mMessagesCacheList[position].timeStamp.timeStampToTime()
-        } else {
-            holder.sentMessageBlock.visibility = View.GONE
-            holder.receivedMessageBlock.visibility = View.VISIBLE
-
-            holder.receivedMessage.text = mMessagesCacheList[position].text
-            holder.receivedMessageTime.text =
-                mMessagesCacheList[position].timeStamp.timeStampToTime()
-        }
     }
 
     override fun getItemCount(): Int = mMessagesCacheList.size

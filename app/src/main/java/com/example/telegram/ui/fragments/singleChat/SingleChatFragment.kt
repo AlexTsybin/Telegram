@@ -47,7 +47,7 @@ class SingleChatFragment(private val contact: CommonModel) :
         initFields()
         initToolbar()
         initSendMessage()
-        initMessagesList()
+        initRecyclerView()
     }
 
     private fun initFields() {
@@ -112,16 +112,16 @@ class SingleChatFragment(private val contact: CommonModel) :
             .start(APP_ACTIVITY, this)
     }
 
-    private fun initMessagesList() {
+    private fun initRecyclerView() {
         mRecyclerView = chat_messages
         mAdapter = SingleChatAdapter()
         mRefMessages = REF_DATABASE_ROOT.child(NODE_MESSAGES)
             .child(CURRENT_UID)
             .child(contact.id)
         mRecyclerView.adapter = mAdapter
-        mRecyclerView.layoutManager = mLayoutManager
-        mRecyclerView.isNestedScrollingEnabled = false
         mRecyclerView.setHasFixedSize(true)
+        mRecyclerView.isNestedScrollingEnabled = false
+        mRecyclerView.layoutManager = mLayoutManager
 
         mMessagesListener = AppChildEventListener {
             val message = it.getCommonModel()
