@@ -22,5 +22,6 @@
     <dimen name="chat_message_image_size">250dp</dimen>
     <dimen name="chat_bottom_sheet_height">70dp</dimen>
     <dimen name="chat_bottom_sheet_icon_size">50dp</dimen>
+    <dimen name="chat_message_file_size">220dp</dimen>
 
 </resources>

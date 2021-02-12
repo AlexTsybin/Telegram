@@ -1,6 +1,7 @@
 package com.example.telegram.ui.views.singleChat.views
 
 import com.example.telegram.models.CommonModel
+import com.example.telegram.utils.MESSAGE_TYPE_FILE
 import com.example.telegram.utils.MESSAGE_TYPE_IMAGE
 import com.example.telegram.utils.MESSAGE_TYPE_VOICE
 
@@ -19,6 +20,13 @@ class AppViewFactory {
                     message.messageSender,
                     message.timeStamp.toString(),
                     message.fileUrl
+                )
+                MESSAGE_TYPE_FILE -> FileMessageView(
+                    message.id,
+                    message.messageSender,
+                    message.timeStamp.toString(),
+                    message.fileUrl,
+                    message.messageText
                 )
                 else -> TextMessageView(
                     message.id,

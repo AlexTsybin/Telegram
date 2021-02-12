@@ -232,7 +232,16 @@ class SingleChatFragment(private val contact: CommonModel) :
                 PICK_FILE_REQUEST_CODE -> {
                     val uri = data.data
                     val messageKey = getMessageKey(contact.id)
-                    uri?.let { uploadFileToStorage(it, messageKey, contact.id, MESSAGE_TYPE_FILE) }
+                    val fileName: String = uri?.let { getFileNameFromUri(it) }.toString()
+                    uri?.let {
+                        uploadFileToStorage(
+                            it,
+                            messageKey,
+                            contact.id,
+                            MESSAGE_TYPE_FILE,
+                            fileName
+                        )
+                    }
                     mIsScrollToEnd = true
                 }
             }

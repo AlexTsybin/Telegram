@@ -159,7 +159,8 @@ fun saveFileToDatabase(
     contactId: String,
     fileUrl: String,
     messageKey: String,
-    messageType: String
+    messageType: String,
+    fileName: String
 ) {
     val refCurrentUser = "$NODE_MESSAGES/$CURRENT_UID/$contactId"
     val refContactUser = "$NODE_MESSAGES/$contactId/$CURRENT_UID"
@@ -170,6 +171,7 @@ fun saveFileToDatabase(
     mapMessage[MESSAGE_TYPE] = messageType
     mapMessage[MESSAGE_TIMESTAMP] = ServerValue.TIMESTAMP
     mapMessage[MESSAGE_FILE_URL] = fileUrl
+    mapMessage[MESSAGE_TEXT] = fileName
 
     val mapDialog = hashMapOf<String, Any>()
     mapDialog["$refCurrentUser/$messageKey"] = mapMessage
@@ -183,12 +185,18 @@ fun getMessageKey(contactId: String) =
     REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID).child(contactId)
         .push().key.toString()
 
-fun uploadFileToStorage(uri: Uri, messageKey: String, contactId: String, messageType: String) {
+fun uploadFileToStorage(
+    uri: Uri,
+    messageKey: String,
+    contactId: String,
+    messageType: String,
+    fileName: String = ""
+) {
     val path = REF_STORAGE_ROOT.child(FOLDER_FILES).child(messageKey)
 
     putFileToStorage(uri, path) {
         getUrlFromStorage(path) {
-            saveFileToDatabase(contactId, it, messageKey, messageType)
+            saveFileToDatabase(contactId, it, messageKey, messageType, fileName)
         }
     }
 }
