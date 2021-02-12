@@ -1,6 +1,6 @@
-package com.example.telegram.ui.views.singleChat.views
+package com.example.telegram.ui.views.privateChat.views
 
-data class FileMessageView(
+data class VoiceMessageView(
     override val id: String,
     override val sender: String,
     override val timeStamp: String,
@@ -8,7 +8,7 @@ data class FileMessageView(
     override val text: String = ""
 ) : MessageView {
     override fun getViewType(): Int {
-        return MessageView.MESSAGE_FILE
+        return MessageView.MESSAGE_VOICE
     }
 
     override fun equals(other: Any?): Boolean {

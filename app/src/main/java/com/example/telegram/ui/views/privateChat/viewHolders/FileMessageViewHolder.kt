@@ -1,4 +1,4 @@
-package com.example.telegram.ui.views.singleChat.viewHolders
+package com.example.telegram.ui.views.privateChat.viewHolders
 
 import android.os.Environment
 import android.view.View
@@ -9,7 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.database.CURRENT_UID
 import com.example.telegram.database.getFileFromStorage
-import com.example.telegram.ui.views.singleChat.views.MessageView
+import com.example.telegram.ui.views.privateChat.views.MessageView
 import com.example.telegram.utils.WRITE_FILE
 import com.example.telegram.utils.checkPermission
 import com.example.telegram.utils.showToast

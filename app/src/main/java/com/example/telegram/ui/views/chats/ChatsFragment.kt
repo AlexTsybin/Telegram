@@ -49,7 +49,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
                         val tempList = it.children.map { it.getCommonModel() }
                         newModel.lastMessage = tempList[0].messageText
 
-                        if (newModel.fullname.isEmpty()){
+                        if (newModel.fullname.isEmpty() || newModel.fullname.isBlank()){
                             newModel.fullname = newModel.phone
                         }
                         mAdapter.updateChatsList(newModel)

@@ -1,10 +1,9 @@
-package com.example.telegram.ui.views.singleChat
+package com.example.telegram.ui.views.privateChat
 
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.AbsListView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +13,7 @@ import com.example.telegram.database.*
 import com.example.telegram.models.CommonModel
 import com.example.telegram.models.UserModel
 import com.example.telegram.ui.views.BaseFragment
-import com.example.telegram.ui.views.singleChat.views.AppViewFactory
+import com.example.telegram.ui.views.privateChat.views.AppViewFactory
 import com.example.telegram.utils.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.DatabaseReference
@@ -55,6 +54,7 @@ class PrivateChatFragment(private val contact: CommonModel) :
     }
 
     private fun initFields() {
+        setHasOptionsMenu(true)
         mLayoutManager = LinearLayoutManager(this.context)
         mAppVoiceRecorder = AppVoiceRecorder()
         mBottomSheetBehavior = BottomSheetBehavior.from(chat_bottom_sheet)
@@ -247,6 +247,19 @@ class PrivateChatFragment(private val contact: CommonModel) :
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        activity?.menuInflater?.inflate(R.menu.private_chat_options_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+//            R.id.menu_chat_clear -> clearChat()
+//            R.id.menu_chat_delete -> deleteChat()
+        }
+        return true
     }
 
     override fun onPause() {

@@ -1,4 +1,4 @@
-package com.example.telegram.ui.views.singleChat.views
+package com.example.telegram.ui.views.privateChat.views
 
 import com.example.telegram.models.CommonModel
 import com.example.telegram.utils.MESSAGE_TYPE_FILE

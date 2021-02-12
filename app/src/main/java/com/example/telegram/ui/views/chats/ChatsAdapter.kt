@@ -7,7 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.R
 import com.example.telegram.models.CommonModel
+import com.example.telegram.ui.views.privateChat.PrivateChatFragment
 import com.example.telegram.utils.downloadAndSetImage
+import com.example.telegram.utils.replaceFragment
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.item_chat.view.*
 
@@ -24,7 +26,11 @@ class ChatsAdapter : RecyclerView.Adapter<ChatsAdapter.ChatsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatsViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_chat, parent, false)
-        return ChatsViewHolder(view)
+
+        val viewHolder = ChatsViewHolder(view)
+        viewHolder.itemView.setOnClickListener { replaceFragment(PrivateChatFragment(chatsList[viewHolder.adapterPosition])) }
+
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: ChatsViewHolder, position: Int) {

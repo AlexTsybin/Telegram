@@ -32,4 +32,6 @@
     <string name="chat_message_warning">Chat message shouldn\'t be empty</string>
     <string name="send_attachment">Send attachment</string>
     <string name="voice_message_recording_indicator">Voice message is recording</string>
+    <string name="clear_chat">Clear chat</string>
+    <string name="delete_chat">Delete chat</string>
 </resources>

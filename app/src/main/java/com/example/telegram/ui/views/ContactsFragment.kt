@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.R
 import com.example.telegram.database.*
 import com.example.telegram.models.CommonModel
-import com.example.telegram.ui.views.singleChat.PrivateChatFragment
+import com.example.telegram.ui.views.privateChat.PrivateChatFragment
 import com.example.telegram.utils.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions

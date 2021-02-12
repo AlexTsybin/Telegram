@@ -1,10 +1,10 @@
-package com.example.telegram.ui.views.singleChat.viewHolders
+package com.example.telegram.ui.views.privateChat.viewHolders
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.R
-import com.example.telegram.ui.views.singleChat.views.MessageView
+import com.example.telegram.ui.views.privateChat.views.MessageView
 
 class AppViewHolderFactory {
     companion object {

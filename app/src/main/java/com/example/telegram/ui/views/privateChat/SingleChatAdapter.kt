@@ -1,9 +1,9 @@
-package com.example.telegram.ui.views.singleChat
+package com.example.telegram.ui.views.privateChat
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.telegram.ui.views.singleChat.viewHolders.*
-import com.example.telegram.ui.views.singleChat.views.MessageView
+import com.example.telegram.ui.views.privateChat.viewHolders.*
+import com.example.telegram.ui.views.privateChat.views.MessageView
 
 class SingleChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

@@ -1,6 +1,6 @@
-package com.example.telegram.ui.views.singleChat.viewHolders
+package com.example.telegram.ui.views.privateChat.viewHolders
 
-import com.example.telegram.ui.views.singleChat.views.MessageView
+import com.example.telegram.ui.views.privateChat.views.MessageView
 
 interface MessageViewHolder {
 

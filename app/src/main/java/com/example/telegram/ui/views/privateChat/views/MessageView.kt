@@ -1,4 +1,4 @@
-package com.example.telegram.ui.views.singleChat.views
+package com.example.telegram.ui.views.privateChat.views
 
 interface MessageView {
     val id: String

@@ -1,11 +1,11 @@
-package com.example.telegram.ui.views.singleChat.viewHolders
+package com.example.telegram.ui.views.privateChat.viewHolders
 
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.database.CURRENT_UID
-import com.example.telegram.ui.views.singleChat.views.MessageView
+import com.example.telegram.ui.views.privateChat.views.MessageView
 import com.example.telegram.utils.timeStampToTime
 import kotlinx.android.synthetic.main.item_message_text.view.*
 
