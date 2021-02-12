@@ -27,7 +27,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SingleChatFragment(private val contact: CommonModel) :
+class PrivateChatFragment(private val contact: CommonModel) :
     BaseFragment(R.layout.fragment_single_chat) {
 
     private lateinit var mListenerChatToolbar: AppValueEventListener
@@ -190,6 +190,7 @@ class SingleChatFragment(private val contact: CommonModel) :
             } else {
                 message = message.trim()
                 sendMessage(message, contact.id, MESSAGE_TYPE_TEXT) {
+                    addChatToMainList(contact.id, TYPE_PRIVATE_CHAT)
                     chat_message_input.setText("")
                 }
             }
