@@ -16,9 +16,11 @@ import com.example.telegram.models.UserModel
 import com.example.telegram.ui.views.BaseFragment
 import com.example.telegram.ui.views.singleChat.views.AppViewFactory
 import com.example.telegram.utils.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.chat_bottom_sheet.*
 import kotlinx.android.synthetic.main.fragment_single_chat.*
 import kotlinx.android.synthetic.main.toolbar_chat.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -38,6 +40,8 @@ class SingleChatFragment(private val contact: CommonModel) :
     private lateinit var mMessagesListener: AppChildEventListener
     private lateinit var mLayoutManager: LinearLayoutManager
     private lateinit var mAppVoiceRecorder: AppVoiceRecorder
+    private lateinit var mBottomSheetBehavior: BottomSheetBehavior<*>
+
     private var mMessagesCount = 20
     private var mIsScroll = false
     private var mIsScrollToEnd = true
@@ -53,6 +57,8 @@ class SingleChatFragment(private val contact: CommonModel) :
     private fun initFields() {
         mLayoutManager = LinearLayoutManager(this.context)
         mAppVoiceRecorder = AppVoiceRecorder()
+        mBottomSheetBehavior = BottomSheetBehavior.from(chat_bottom_sheet)
+        mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         chat_message_input.addTextChangedListener(AppTextWatcher {
             val msg = chat_message_input.text.toString()
             if (msg.isEmpty() || msg.equals("Voice message is recording")) {
@@ -106,10 +112,22 @@ class SingleChatFragment(private val contact: CommonModel) :
     }
 
     private fun sendAtachment() {
+        mBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        chat_attach_image.setOnClickListener { sendImageAttachment() }
+        chat_attach_file.setOnClickListener { sendFileAttachment() }
+    }
+
+    private fun sendImageAttachment() {
         CropImage.activity()
             .setAspectRatio(1, 1)
             .setRequestedSize(250, 250)
             .start(APP_ACTIVITY, this)
+    }
+
+    private fun sendFileAttachment() {
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "*/*"
+        startActivityForResult(intent, PICK_FILE_REQUEST_CODE)
     }
 
     private fun initRecyclerView() {
@@ -202,11 +220,22 @@ class SingleChatFragment(private val contact: CommonModel) :
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
-            val uri = CropImage.getActivityResult(data).uri
-            val messageKey = getMessageKey(contact.id)
-            uploadFileToStorage(uri, messageKey, contact.id, MESSAGE_TYPE_IMAGE)
-            mIsScrollToEnd = true
+
+        if (data != null && resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                    val uri = CropImage.getActivityResult(data).uri
+                    val messageKey = getMessageKey(contact.id)
+                    uploadFileToStorage(uri, messageKey, contact.id, MESSAGE_TYPE_IMAGE)
+                    mIsScrollToEnd = true
+                }
+                PICK_FILE_REQUEST_CODE -> {
+                    val uri = data.data
+                    val messageKey = getMessageKey(contact.id)
+                    uri?.let { uploadFileToStorage(it, messageKey, contact.id, MESSAGE_TYPE_FILE) }
+                    mIsScrollToEnd = true
+                }
+            }
         }
     }
 
