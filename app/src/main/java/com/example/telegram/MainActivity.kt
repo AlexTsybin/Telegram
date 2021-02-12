@@ -9,7 +9,7 @@ import com.example.telegram.database.AUTH
 import com.example.telegram.database.initFirebase
 import com.example.telegram.database.initUser
 import com.example.telegram.databinding.ActivityMainBinding
-import com.example.telegram.ui.views.MainFragment
+import com.example.telegram.ui.views.chats.ChatsFragment
 import com.example.telegram.ui.views.register.AddPhoneNumberFragment
 import com.example.telegram.ui.objects.AppDrawer
 import com.example.telegram.utils.*
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             replaceFragment(AddPhoneNumberFragment(), false)
         } else {
             mAppDrawer.create()
-            replaceFragment(MainFragment(), false)
+            replaceFragment(ChatsFragment(), false)
         }
     }
 

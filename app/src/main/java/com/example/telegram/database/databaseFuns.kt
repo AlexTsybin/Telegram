@@ -209,8 +209,8 @@ fun getFileFromStorage(mFile: File, fileUrl: String, function: () -> Unit) {
 }
 
 fun addChatToMainList(id: String, chatType: String) {
-    val refCurrent = "$NODE_MAIN_LIST/$CURRENT_UID/$id"
-    val refContact = "$NODE_MAIN_LIST/$id/$CURRENT_UID"
+    val refCurrent = "$NODE_CHATS_LIST/$CURRENT_UID/$id"
+    val refContact = "$NODE_CHATS_LIST/$id/$CURRENT_UID"
 
     val mapCurrent = hashMapOf<String, Any>()
     val mapContact = hashMapOf<String, Any>()
