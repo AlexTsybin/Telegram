@@ -228,3 +228,24 @@ fun addChatToMainList(id: String, chatType: String) {
     REF_DATABASE_ROOT.updateChildren(commonMap)
         .addOnFailureListener { showToast(it.message.toString()) }
 }
+
+fun clearChat(contactId: String, function: () -> Unit) {
+    // Clear current user messages
+    REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID).child(contactId)
+        .removeValue()
+        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnSuccessListener {
+            // Clear contact's messages
+            REF_DATABASE_ROOT.child(NODE_MESSAGES).child(contactId).child(CURRENT_UID)
+                .removeValue()
+                .addOnFailureListener { showToast(it.message.toString()) }
+                .addOnSuccessListener { function() }
+        }
+}
+
+fun deleteChat(contactId: String, function: () -> Unit) {
+    REF_DATABASE_ROOT.child(NODE_CHATS_LIST).child(CURRENT_UID).child(contactId)
+        .removeValue()
+        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnSuccessListener { function() }
+}

@@ -66,7 +66,7 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
                 mRefUsersListener = AppValueEventListener {
                     val contact = it.getCommonModel()
 
-                    if (contact.fullname.isEmpty()) {
+                    if (contact.fullname.isEmpty() || contact.fullname.isBlank()) {
                         holder.name.text = model.fullname
                     } else {
                         holder.name.text = contact.fullname

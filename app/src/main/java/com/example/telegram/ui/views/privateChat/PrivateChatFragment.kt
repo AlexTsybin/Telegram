@@ -13,6 +13,7 @@ import com.example.telegram.database.*
 import com.example.telegram.models.CommonModel
 import com.example.telegram.models.UserModel
 import com.example.telegram.ui.views.BaseFragment
+import com.example.telegram.ui.views.chats.ChatsFragment
 import com.example.telegram.ui.views.privateChat.views.AppViewFactory
 import com.example.telegram.utils.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -256,8 +257,14 @@ class PrivateChatFragment(private val contact: CommonModel) :
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-//            R.id.menu_chat_clear -> clearChat()
-//            R.id.menu_chat_delete -> deleteChat()
+            R.id.menu_chat_clear -> clearChat(contact.id) {
+                showToast(getString(R.string.chat_cleared))
+                replaceFragment(ChatsFragment())
+            }
+            R.id.menu_chat_delete -> deleteChat(contact.id) {
+                showToast(getString(R.string.chat_deleted))
+                replaceFragment(ChatsFragment())
+            }
         }
         return true
     }

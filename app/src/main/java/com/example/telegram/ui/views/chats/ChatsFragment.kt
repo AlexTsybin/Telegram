@@ -47,7 +47,11 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
                     // 3rd query
                     mRefMessages.child(model.id).limitToLast(1).addListenerForSingleValueEvent(AppValueEventListener{
                         val tempList = it.children.map { it.getCommonModel() }
-                        newModel.lastMessage = tempList[0].messageText
+                        if (tempList.isEmpty()){
+                            newModel.lastMessage = getString(R.string.no_messages)
+                        } else {
+                            newModel.lastMessage = tempList[0].messageText
+                        }
 
                         if (newModel.fullname.isEmpty() || newModel.fullname.isBlank()){
                             newModel.fullname = newModel.phone
