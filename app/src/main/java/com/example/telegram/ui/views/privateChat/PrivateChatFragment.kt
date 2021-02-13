@@ -12,7 +12,7 @@ import com.example.telegram.R
 import com.example.telegram.database.*
 import com.example.telegram.models.CommonModel
 import com.example.telegram.models.UserModel
-import com.example.telegram.ui.views.BaseFragment
+import com.example.telegram.ui.views.base.BaseFragment
 import com.example.telegram.ui.views.chats.ChatsFragment
 import com.example.telegram.ui.views.privateChat.views.AppViewFactory
 import com.example.telegram.utils.*

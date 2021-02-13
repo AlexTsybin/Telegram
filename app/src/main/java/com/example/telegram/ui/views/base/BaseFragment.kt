@@ -1,4 +1,4 @@
-package com.example.telegram.ui.views
+package com.example.telegram.ui.views.base
 
 import androidx.fragment.app.Fragment
 import com.example.telegram.utils.APP_ACTIVITY

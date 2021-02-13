@@ -37,4 +37,5 @@
     <string name="chat_deleted">Chat deleted</string>
     <string name="chat_cleared">Chat cleared</string>
     <string name="no_messages">No messages</string>
+    <string name="create_group">Create group</string>
 </resources>

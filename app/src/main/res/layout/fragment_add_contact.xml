@@ -4,25 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.views.register.AddPhoneNumberFragment">
+    tools:context=".ui.views.chats.ChatsFragment">
 
-    <EditText
-        android:id="@+id/register_phone_input"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/add_contact_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/default_margin"
-        android:autofillHints=""
-        android:hint="@string/enter_phone_number"
-        android:inputType="phone"
-        android:maxLines="1"
-        android:textColor="@color/black"
-        android:textColorHint="@color/secondary_text_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_add_contact" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/register_phone_send"
+        android:id="@+id/add_contact_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"

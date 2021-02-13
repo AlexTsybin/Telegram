@@ -16,7 +16,8 @@ data class CommonModel(
     var timeStamp: Any = "",
     var fileUrl: String = "empty", // default link for Picasso
 
-    var lastMessage: String = ""
+    var lastMessage: String = "",
+    var checked: Boolean = false
 ) {
     override fun equals(other: Any?): Boolean {
         return (other as CommonModel).id == id

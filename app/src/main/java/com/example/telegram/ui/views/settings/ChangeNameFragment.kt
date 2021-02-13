@@ -3,7 +3,7 @@ package com.example.telegram.ui.views.settings
 import com.example.telegram.R
 import com.example.telegram.database.USER
 import com.example.telegram.database.setNameToDatabase
-import com.example.telegram.ui.views.BaseChangeFragment
+import com.example.telegram.ui.views.base.BaseChangeFragment
 import com.example.telegram.utils.*
 import kotlinx.android.synthetic.main.fragment_change_name.*
 

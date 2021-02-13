@@ -1,9 +1,10 @@
-package com.example.telegram.ui.views
+package com.example.telegram.ui.views.base
 
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import com.example.telegram.R
+import com.example.telegram.ui.views.base.BaseFragment
 import com.example.telegram.utils.APP_ACTIVITY
 import com.example.telegram.utils.hideKeyboard
 

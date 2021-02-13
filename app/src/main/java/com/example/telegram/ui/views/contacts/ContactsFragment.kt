@@ -1,4 +1,4 @@
-package com.example.telegram.ui.views
+package com.example.telegram.ui.views.contacts
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.R
 import com.example.telegram.database.*
 import com.example.telegram.models.CommonModel
+import com.example.telegram.ui.views.base.BaseFragment
 import com.example.telegram.ui.views.privateChat.PrivateChatFragment
 import com.example.telegram.utils.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter

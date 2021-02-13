@@ -7,7 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import com.example.telegram.R
 import com.example.telegram.database.*
-import com.example.telegram.ui.views.BaseFragment
+import com.example.telegram.ui.views.base.BaseFragment
 import com.example.telegram.utils.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
