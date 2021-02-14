@@ -28,7 +28,7 @@ class AddContactAdapter : RecyclerView.Adapter<AddContactAdapter.AddContactViewH
 
         val viewHolder = AddContactViewHolder(view)
         viewHolder.itemView.setOnClickListener {
-            if (contactsList[viewHolder.adapterPosition].checked){
+            if (contactsList[viewHolder.adapterPosition].checked) {
                 viewHolder.checkPic.visibility = View.INVISIBLE
                 contactsList[viewHolder.adapterPosition].checked = false
                 AddContactFragment.checkedContactsList.remove(contactsList[viewHolder.adapterPosition])

@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.ui.views.privateChat.viewHolders.*
 import com.example.telegram.ui.views.privateChat.views.MessageView
 
-class SingleChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PrivateChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mMessagesCacheList = mutableListOf<MessageView>()
     private var mListViewHolders = mutableListOf<MessageViewHolder>()

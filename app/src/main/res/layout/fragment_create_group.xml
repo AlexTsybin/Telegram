@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/create_group_avatar"
+        android:layout_width="@dimen/settings_avatar_size"
+        android:layout_height="@dimen/settings_avatar_size"
+        android:layout_margin="@dimen/default_margin"
+        android:src="@drawable/change_photo_group"
+        app:civ_border_color="#8C8C8C"
+        app:civ_border_width="@dimen/xxsmall_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/create_group_input_name"
+        style="@style/mainText.16sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:focusableInTouchMode="true"
+        android:hint="@string/enter_group_name"
+        app:layout_constraintBottom_toBottomOf="@id/create_group_avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/create_group_avatar"
+        app:layout_constraintTop_toTopOf="@id/create_group_avatar"
+        tools:text="Group name" />
+
+    <TextView
+        android:id="@+id/create_group_count"
+        style="@style/primaryText.14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_margin"
+        android:text="@string/account"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/create_group_avatar" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/create_group_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_margin"
+        android:backgroundTint="@color/primary"
+        android:src="@drawable/ic_check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/create_group_contacts_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/create_group_count"
+        tools:listitem="@layout/item_chat" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

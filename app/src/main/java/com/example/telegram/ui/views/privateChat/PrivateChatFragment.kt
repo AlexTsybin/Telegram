@@ -35,7 +35,7 @@ class PrivateChatFragment(private val contact: CommonModel) :
     private lateinit var mToolbarChat: View
     private lateinit var mRefContact: DatabaseReference
     private lateinit var mRefMessages: DatabaseReference
-    private lateinit var mAdapter: SingleChatAdapter
+    private lateinit var mAdapter: PrivateChatAdapter
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mMessagesListener: AppChildEventListener
     private lateinit var mLayoutManager: LinearLayoutManager
@@ -133,7 +133,7 @@ class PrivateChatFragment(private val contact: CommonModel) :
 
     private fun initRecyclerView() {
         mRecyclerView = chat_messages
-        mAdapter = SingleChatAdapter()
+        mAdapter = PrivateChatAdapter()
         mRefMessages = REF_DATABASE_ROOT.child(NODE_MESSAGES)
             .child(CURRENT_UID)
             .child(contact.id)

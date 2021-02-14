@@ -5,13 +5,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.telegram.R
 import com.example.telegram.database.*
 import com.example.telegram.models.CommonModel
-import com.example.telegram.utils.APP_ACTIVITY
-import com.example.telegram.utils.AppValueEventListener
-import com.example.telegram.utils.hideKeyboard
+import com.example.telegram.ui.views.base.BaseFragment
+import com.example.telegram.utils.*
 import kotlinx.android.synthetic.main.fragment_add_contact.*
 import kotlinx.android.synthetic.main.fragment_chats.*
 
-class AddContactFragment : Fragment(R.layout.fragment_add_contact) {
+class AddContactFragment : BaseFragment(R.layout.fragment_add_contact) {
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: AddContactAdapter
@@ -23,12 +22,15 @@ class AddContactFragment : Fragment(R.layout.fragment_add_contact) {
     override fun onResume() {
         super.onResume()
         APP_ACTIVITY.title = getString(R.string.create_group)
-        APP_ACTIVITY.mAppDrawer.enableDrawer()
         hideKeyboard()
 
         initRecyclerView()
         add_contact_fab.setOnClickListener {
-            checkedContactsList.forEach { println(it.id) }
+            if (checkedContactsList.isEmpty()){
+                showToast("Add contact to create group")
+            } else {
+                replaceFragment(CreateGroupFragment(checkedContactsList))
+            }
         }
     }
 
@@ -46,19 +48,20 @@ class AddContactFragment : Fragment(R.layout.fragment_add_contact) {
                     val newModel = it.getCommonModel()
 
                     // 3rd query
-                    mRefMessages.child(model.id).limitToLast(1).addListenerForSingleValueEvent(AppValueEventListener{
-                        val tempList = it.children.map { it.getCommonModel() }
-                        if (tempList.isEmpty()){
-                            newModel.lastMessage = getString(R.string.no_messages)
-                        } else {
-                            newModel.lastMessage = tempList[0].messageText
-                        }
+                    mRefMessages.child(model.id).limitToLast(1)
+                        .addListenerForSingleValueEvent(AppValueEventListener {
+                            val tempList = it.children.map { it.getCommonModel() }
+                            if (tempList.isEmpty()) {
+                                newModel.lastMessage = getString(R.string.no_messages)
+                            } else {
+                                newModel.lastMessage = tempList[0].messageText
+                            }
 
-                        if (newModel.fullname.isEmpty() || newModel.fullname.isBlank()){
-                            newModel.fullname = newModel.phone
-                        }
-                        mAdapter.updateChatsList(newModel)
-                    })
+                            if (newModel.fullname.isEmpty() || newModel.fullname.isBlank()) {
+                                newModel.fullname = newModel.phone
+                            }
+                            mAdapter.updateChatsList(newModel)
+                        })
                 })
             }
         })
@@ -66,7 +69,7 @@ class AddContactFragment : Fragment(R.layout.fragment_add_contact) {
         mRecyclerView.adapter = mAdapter
     }
 
-    companion object{
+    companion object {
         val checkedContactsList = mutableListOf<CommonModel>()
     }
 }

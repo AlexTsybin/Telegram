@@ -13,7 +13,7 @@ import com.example.telegram.utils.replaceFragment
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.item_chat.view.*
 
-class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ChatsViewHolder>() {
+class CreateGroupAdapter : RecyclerView.Adapter<CreateGroupAdapter.ChatsViewHolder>() {
 
     private val chatsList = mutableListOf<CommonModel>()
 
@@ -41,7 +41,7 @@ class GroupAdapter : RecyclerView.Adapter<GroupAdapter.ChatsViewHolder>() {
 
     override fun getItemCount(): Int = chatsList.size
 
-    fun updateChatsList(chat: CommonModel) {
+    fun updateContactsList(chat: CommonModel) {
         chatsList.add(chat)
         notifyItemInserted(chatsList.size)
     }
