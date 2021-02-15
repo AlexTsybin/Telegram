@@ -23,8 +23,8 @@ class AddContactFragment : BaseFragment(R.layout.fragment_add_contact) {
         super.onResume()
         APP_ACTIVITY.title = getString(R.string.create_group)
         hideKeyboard()
-
         initRecyclerView()
+        checkedContactsList.clear()
         add_contact_fab.setOnClickListener {
             if (checkedContactsList.isEmpty()){
                 showToast("Add contact to create group")

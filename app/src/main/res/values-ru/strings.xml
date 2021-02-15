@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Telegram</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tap_to_change_phone_number">Кликните для изменения номера телефона</string>
+    <string name="add_a_few_words_about_yourself">Добавьте информацию о себе</string>
+    <string name="username">Имя пользователя</string>
+    <string name="account">Аккаунт</string>
+    <string name="online">В сети</string>
+    <string name="edit_name">Изменить имя</string>
+    <string name="log_out">Выход</string>
+    <string name="enter_code">Код для входа</string>
+    <string name="sms_with_code_hint">Мы отправили Вам СМС с кодом</string>
+    <string name="code_hint">- - - - - -</string>
+    <string name="title_your_phone">Ваш номер телефона</string>
+    <string name="enter_phone_number">Введите Ваш номер телефона</string>
+    <string name="code_verified">Подтверждение по коду</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="apply">Подтвердить</string>
+    <string name="change_name_warning">Имя не может быть пустым</string>
+    <string name="toast_name_updated">Имя пользователя обновлено</string>
+    <string name="change_username_warning">Имя пользователя не может быть пустым</string>
+    <string name="toast_username_updated">Имя пользователя обновлено</string>
+    <string name="username_already_exist_warning">Пользователь с таким именем уже существует</string>
+    <string name="biography">О себе</string>
+    <string name="users_bio_updated">Информация о пользователе обновлена</string>
+    <string name="data_updated">Данные обновлены</string>
+    <string name="contacts">Контакты</string>
+    <string name="settings">Настройки</string>
+    <string name="message">Сообщение</string>
+    <string name="send_message_cd">Отправить сообщение</string>
+    <string name="chat_message_warning">Сообщение не может быть пустым</string>
+    <string name="send_attachment">Отправить вложение</string>
+    <string name="voice_message_recording_indicator">Голосовое сообщение записывается</string>
+    <string name="clear_chat">Очистить чат</string>
+    <string name="delete_chat">Удалить чат</string>
+    <string name="chat_deleted">Чат удалён</string>
+    <string name="chat_cleared">Чат очищен</string>
+    <string name="no_messages">Нет сообщений</string>
+    <string name="create_group">Создать группу</string>
+    <string name="enter_group_name">Введитя имя группы</string>
+
+    <plurals name="members_count">
+        <item quantity="one">%d участник</item>
+        <item quantity="few">%d участника</item>
+        <item quantity="many">%d участников</item>
+        <item quantity="other">%d участников</item>
+    </plurals>
+</resources>

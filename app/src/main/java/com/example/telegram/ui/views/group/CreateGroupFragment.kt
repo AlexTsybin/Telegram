@@ -7,6 +7,7 @@ import com.example.telegram.models.CommonModel
 import com.example.telegram.ui.views.base.BaseFragment
 import com.example.telegram.utils.APP_ACTIVITY
 import com.example.telegram.utils.AppValueEventListener
+import com.example.telegram.utils.getMembersCount
 import com.example.telegram.utils.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_chats.*
 import kotlinx.android.synthetic.main.fragment_create_group.*
@@ -24,6 +25,7 @@ class CreateGroupFragment(private var contactsList: List<CommonModel>) :
         create_group_fab.setOnClickListener { }
         create_group_input_name.requestFocus()
         initRecyclerView()
+        create_group_count.text = getMembersCount(contactsList.size)
     }
 
     private fun initRecyclerView() {

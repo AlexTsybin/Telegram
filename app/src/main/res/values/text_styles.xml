@@ -19,6 +19,10 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
+    <style name="mainText.Medium.16sp">
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <!--Roboto light, weight = 300-->
     <style name="mainText.Light">
         <item name="android:fontFamily">sans-serif-light</item>

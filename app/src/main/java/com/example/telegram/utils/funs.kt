@@ -105,3 +105,5 @@ fun getFileNameFromUri(uri: Uri): String {
         return result
     }
 }
+
+fun getMembersCount(count: Int) = APP_ACTIVITY.resources.getQuantityString(R.plurals.members_count, count, count)

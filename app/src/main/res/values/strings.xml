@@ -39,4 +39,9 @@
     <string name="no_messages">No messages</string>
     <string name="create_group">Create group</string>
     <string name="enter_group_name">Enter group name</string>
+
+    <plurals name="members_count">
+        <item quantity="one">%d member</item>
+        <item quantity="other">%d members</item>
+    </plurals>
 </resources>

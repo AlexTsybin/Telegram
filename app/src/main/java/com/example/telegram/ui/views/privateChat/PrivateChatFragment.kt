@@ -21,14 +21,14 @@ import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.chat_bottom_sheet.*
-import kotlinx.android.synthetic.main.fragment_single_chat.*
+import kotlinx.android.synthetic.main.fragment_private_chat.*
 import kotlinx.android.synthetic.main.toolbar_chat.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PrivateChatFragment(private val contact: CommonModel) :
-    BaseFragment(R.layout.fragment_single_chat) {
+    BaseFragment(R.layout.fragment_private_chat) {
 
     private lateinit var mListenerChatToolbar: AppValueEventListener
     private lateinit var mReceivedContact: UserModel

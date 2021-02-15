@@ -11,18 +11,17 @@
         android:layout_height="@dimen/settings_avatar_size"
         android:layout_margin="@dimen/default_margin"
         android:src="@drawable/change_photo_group"
-        app:civ_border_color="#8C8C8C"
-        app:civ_border_width="@dimen/xxsmall_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/create_group_input_name"
-        style="@style/mainText.16sp"
+        style="@style/mainText.Medium.16sp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
         android:focusableInTouchMode="true"
+        android:inputType="text"
         android:hint="@string/enter_group_name"
         app:layout_constraintBottom_toBottomOf="@id/create_group_avatar"
         app:layout_constraintEnd_toEndOf="parent"
