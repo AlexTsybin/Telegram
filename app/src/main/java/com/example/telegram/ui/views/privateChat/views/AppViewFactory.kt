@@ -8,7 +8,7 @@ import com.example.telegram.utils.MESSAGE_TYPE_VOICE
 class AppViewFactory {
     companion object {
         fun getView(message: CommonModel): MessageView {
-            return when (message.messageType) {
+            return when (message.type) {
                 MESSAGE_TYPE_IMAGE -> ImageMessageView(
                     message.id,
                     message.messageSender,

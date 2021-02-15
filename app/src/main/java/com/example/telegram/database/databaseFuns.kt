@@ -6,6 +6,7 @@ import com.example.telegram.models.CommonModel
 import com.example.telegram.models.UserModel
 import com.example.telegram.utils.APP_ACTIVITY
 import com.example.telegram.utils.AppValueEventListener
+import com.example.telegram.utils.TYPE_GROUP_CHAT
 import com.example.telegram.utils.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -94,7 +95,7 @@ fun sendMessage(message: String, contactId: String, messageTypeText: String, fun
     mapMessage[USER_ID] = messageKey.toString()
     mapMessage[MESSAGE_SENDER] = CURRENT_UID
     mapMessage[MESSAGE_TEXT] = message
-    mapMessage[MESSAGE_TYPE] = messageTypeText
+    mapMessage[CHILD_TYPE] = messageTypeText
     mapMessage[MESSAGE_TIMESTAMP] = ServerValue.TIMESTAMP
 
     val mapDialog = hashMapOf<String, Any>()
@@ -169,7 +170,7 @@ fun saveFileToDatabase(
     val mapMessage = hashMapOf<String, Any>()
     mapMessage[USER_ID] = messageKey
     mapMessage[MESSAGE_SENDER] = CURRENT_UID
-    mapMessage[MESSAGE_TYPE] = messageType
+    mapMessage[CHILD_TYPE] = messageType
     mapMessage[MESSAGE_TIMESTAMP] = ServerValue.TIMESTAMP
     mapMessage[MESSAGE_FILE_URL] = fileUrl
     mapMessage[MESSAGE_TEXT] = fileName
@@ -217,10 +218,10 @@ fun addChatToMainList(id: String, chatType: String) {
     val mapContact = hashMapOf<String, Any>()
 
     mapCurrent[USER_ID] = id
-    mapCurrent[CHAT_TYPE] = chatType
+    mapCurrent[CHILD_TYPE] = chatType
 
     mapContact[USER_ID] = CURRENT_UID
-    mapContact[CHAT_TYPE] = chatType
+    mapContact[CHILD_TYPE] = chatType
 
     val commonMap = hashMapOf<String, Any>()
     commonMap[refCurrent] = mapCurrent
@@ -263,6 +264,7 @@ fun saveGroupToDB(
     val groupDataMap = hashMapOf<String, Any>()
     groupDataMap[USER_ID] = groupKey
     groupDataMap[USER_FULLNAME] = groupName
+    groupDataMap[USER_AVATAR_URL] = "empty"
 
     val membersMap = hashMapOf<String, Any>()
     contactsList.forEach {
@@ -275,15 +277,42 @@ fun saveGroupToDB(
     path.updateChildren(groupDataMap)
         .addOnFailureListener { showToast(it.message.toString()) }
         .addOnSuccessListener {
-            function()
             if (uri != Uri.EMPTY) {
                 val storagePath = REF_STORAGE_ROOT.child(FOLDER_GROUPS_AVATARS).child(groupKey)
                 putFileToStorage(uri, storagePath) {
                     getUrlFromStorage(storagePath) {
-                        path.child(MESSAGE_FILE_URL).setValue(it)
+                        path.child(USER_AVATAR_URL).setValue(it)
+
+                        addGroupToChatsList(groupDataMap, contactsList) {
+                            function()
+                        }
                     }
+                }
+            } else {
+                addGroupToChatsList(groupDataMap, contactsList) {
+                    function()
                 }
             }
         }
+}
 
+fun addGroupToChatsList(
+    groupDataMap: HashMap<String, Any>,
+    contactsList: List<CommonModel>,
+    function: () -> Unit
+) {
+    val path = REF_DATABASE_ROOT.child(NODE_CHATS_LIST)
+    val map = hashMapOf<String, Any>()
+
+    map[USER_ID] = groupDataMap[USER_ID].toString()
+    map[CHILD_TYPE] = TYPE_GROUP_CHAT
+    contactsList.forEach {
+        path.child(it.id).child(map[USER_ID].toString()).updateChildren(map)
+    }
+
+    path.child(CURRENT_UID).child(map[USER_ID].toString()).updateChildren(map)
+        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnSuccessListener {
+            function()
+        }
 }

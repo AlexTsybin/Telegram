@@ -11,7 +11,7 @@ data class CommonModel(
 
     // Chat fields
     var messageText: String = "",
-    var messageType: String = "",
+    var type: String = "",
     var messageSender: String = "",
     var timeStamp: Any = "",
     var fileUrl: String = "empty", // default link for Picasso

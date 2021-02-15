@@ -34,12 +34,10 @@ const val USER_STATE = "state"
 
 // Chat fields
 const val MESSAGE_TEXT = "messageText"
-const val MESSAGE_TYPE = "messageType"
+const val CHILD_TYPE = "type"
 const val MESSAGE_SENDER = "messageSender"
 const val MESSAGE_TIMESTAMP = "timeStamp"
 const val MESSAGE_FILE_URL = "fileUrl"
-
-const val CHAT_TYPE = "chatType"
 
 // Group fields
 const val USER_CREATOR = "creator"
