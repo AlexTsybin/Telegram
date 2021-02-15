@@ -13,6 +13,7 @@ lateinit var USER: UserModel
 
 const val FOLDER_USER_AVATAR = "user_avatar"
 const val FOLDER_FILES = "message_files"
+const val FOLDER_GROUPS_AVATARS = "groups_avatars"
 
 const val NODE_USERS = "users"
 const val NODE_USERNAMES = "usernames"
@@ -20,6 +21,8 @@ const val NODE_PHONES = "phones"
 const val NODE_CONTACTS = "contacts"
 const val NODE_MESSAGES = "messages"
 const val NODE_CHATS_LIST = "chats_list"
+const val NODE_GROUPS = "groups"
+const val NODE_MEMBERS = "members"
 
 const val USER_ID = "id"
 const val USER_PHONE = "phone"
@@ -37,3 +40,8 @@ const val MESSAGE_TIMESTAMP = "timeStamp"
 const val MESSAGE_FILE_URL = "fileUrl"
 
 const val CHAT_TYPE = "chatType"
+
+// Group fields
+const val USER_CREATOR = "creator"
+const val USER_ADMIN = "admin"
+const val USER_MEMBER = "member"

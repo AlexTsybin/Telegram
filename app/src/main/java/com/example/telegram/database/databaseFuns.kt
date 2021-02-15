@@ -14,6 +14,7 @@ import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.File
+import java.net.URI
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
@@ -248,4 +249,41 @@ fun deleteChat(contactId: String, function: () -> Unit) {
         .removeValue()
         .addOnFailureListener { showToast(it.message.toString()) }
         .addOnSuccessListener { function() }
+}
+
+fun saveGroupToDB(
+    groupName: String,
+    uri: Uri,
+    contactsList: List<CommonModel>,
+    function: () -> Unit
+) {
+    val groupKey = REF_DATABASE_ROOT.child(NODE_GROUPS).push().key.toString()
+    val path = REF_DATABASE_ROOT.child(NODE_GROUPS).child(groupKey)
+
+    val groupDataMap = hashMapOf<String, Any>()
+    groupDataMap[USER_ID] = groupKey
+    groupDataMap[USER_FULLNAME] = groupName
+
+    val membersMap = hashMapOf<String, Any>()
+    contactsList.forEach {
+        membersMap[it.id] = USER_MEMBER
+    }
+    membersMap[CURRENT_UID] = USER_CREATOR
+
+    groupDataMap[NODE_MEMBERS] = membersMap
+
+    path.updateChildren(groupDataMap)
+        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnSuccessListener {
+            function()
+            if (uri != Uri.EMPTY) {
+                val storagePath = REF_STORAGE_ROOT.child(FOLDER_GROUPS_AVATARS).child(groupKey)
+                putFileToStorage(uri, storagePath) {
+                    getUrlFromStorage(storagePath) {
+                        path.child(MESSAGE_FILE_URL).setValue(it)
+                    }
+                }
+            }
+        }
+
 }

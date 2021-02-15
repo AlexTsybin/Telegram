@@ -40,6 +40,7 @@
     <string name="no_messages">Нет сообщений</string>
     <string name="create_group">Создать группу</string>
     <string name="enter_group_name">Введитя имя группы</string>
+    <string name="group_name_empty_wrn">Имя группы не должно быть пустым</string>
 
     <plurals name="members_count">
         <item quantity="one">%d участник</item>

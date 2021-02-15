@@ -39,6 +39,7 @@
     <string name="no_messages">No messages</string>
     <string name="create_group">Create group</string>
     <string name="enter_group_name">Enter group name</string>
+    <string name="group_name_empty_wrn">Group name shouldn\'t be empty</string>
 
     <plurals name="members_count">
         <item quantity="one">%d member</item>
