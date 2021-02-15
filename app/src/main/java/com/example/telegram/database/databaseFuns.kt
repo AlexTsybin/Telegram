@@ -316,3 +316,20 @@ fun addGroupToChatsList(
             function()
         }
 }
+
+fun sendMessageToGroup(message: String, groupId: String, messageTypeText: String, function: () -> Unit) {
+
+    val refMessages = "$NODE_GROUPS/$groupId/$NODE_MESSAGES"
+    val messageKey = REF_DATABASE_ROOT.child(refMessages).push().key
+
+    val mapMessage = hashMapOf<String, Any>()
+    mapMessage[USER_ID] = messageKey.toString()
+    mapMessage[MESSAGE_SENDER] = CURRENT_UID
+    mapMessage[MESSAGE_TEXT] = message
+    mapMessage[CHILD_TYPE] = messageTypeText
+    mapMessage[MESSAGE_TIMESTAMP] = ServerValue.TIMESTAMP
+
+    REF_DATABASE_ROOT.child(refMessages).child(messageKey.toString()).updateChildren(mapMessage)
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast(it.message.toString()) }
+}

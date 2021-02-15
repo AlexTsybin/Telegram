@@ -20,7 +20,7 @@ class CreateGroupFragment(private var contactsList: List<CommonModel>) :
     BaseFragment(R.layout.fragment_create_group) {
 
     private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mAdapterCreate: CreateGroupAdapter
+    private lateinit var mAdapterCreate: AddContactAdapter
     private var mUri = Uri.EMPTY
 
     override fun onResume() {
@@ -55,7 +55,7 @@ class CreateGroupFragment(private var contactsList: List<CommonModel>) :
 
     private fun initRecyclerView() {
         mRecyclerView = create_group_contacts_rv
-        mAdapterCreate = CreateGroupAdapter()
+        mAdapterCreate = AddContactAdapter()
 
         mRecyclerView.adapter = mAdapterCreate
         contactsList.forEach {

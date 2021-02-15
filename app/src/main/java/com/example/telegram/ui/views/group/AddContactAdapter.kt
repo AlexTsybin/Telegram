@@ -50,7 +50,7 @@ class AddContactAdapter : RecyclerView.Adapter<AddContactAdapter.AddContactViewH
 
     override fun getItemCount(): Int = contactsList.size
 
-    fun updateChatsList(chat: CommonModel) {
+    fun updateContactsList(chat: CommonModel) {
         contactsList.add(chat)
         notifyItemInserted(contactsList.size)
     }

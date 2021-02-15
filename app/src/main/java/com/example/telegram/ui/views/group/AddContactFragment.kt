@@ -60,7 +60,7 @@ class AddContactFragment : BaseFragment(R.layout.fragment_add_contact) {
                             if (newModel.fullname.isEmpty() || newModel.fullname.isBlank()) {
                                 newModel.fullname = newModel.phone
                             }
-                            mAdapter.updateChatsList(newModel)
+                            mAdapter.updateContactsList(newModel)
                         })
                 })
             }

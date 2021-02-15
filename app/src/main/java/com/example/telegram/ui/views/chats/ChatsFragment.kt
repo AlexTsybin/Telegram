@@ -65,6 +65,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
                         newModel.lastMessage = tempList[0].messageText
                     }
 
+                    newModel.type = TYPE_GROUP_CHAT
                     mAdapter.updateChatsList(newModel)
                 })
         })
@@ -88,6 +89,8 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
                     if (newModel.fullname.isEmpty() || newModel.fullname.isBlank()) {
                         newModel.fullname = newModel.phone
                     }
+
+                    newModel.type = TYPE_PRIVATE_CHAT
                     mAdapter.updateChatsList(newModel)
                 })
         })

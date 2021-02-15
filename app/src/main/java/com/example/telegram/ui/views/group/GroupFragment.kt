@@ -1,4 +1,4 @@
-package com.example.telegram.ui.views.privateChat
+package com.example.telegram.ui.views.group
 
 import android.app.Activity
 import android.content.Intent
@@ -14,6 +14,7 @@ import com.example.telegram.models.CommonModel
 import com.example.telegram.models.UserModel
 import com.example.telegram.ui.views.base.BaseFragment
 import com.example.telegram.ui.views.chats.ChatsFragment
+import com.example.telegram.ui.views.privateChat.ChatAdapter
 import com.example.telegram.ui.views.privateChat.views.AppViewFactory
 import com.example.telegram.utils.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -27,7 +28,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class PrivateChatFragment(private val contact: CommonModel) :
+class GroupFragment(private val group: CommonModel) :
     BaseFragment(R.layout.fragment_private_chat) {
 
     private lateinit var mListenerChatToolbar: AppValueEventListener
@@ -85,7 +86,7 @@ class PrivateChatFragment(private val contact: CommonModel) :
                                 R.color.colorPrimary
                             )
                         )
-                        val messageKey = getMessageKey(contact.id)
+                        val messageKey = getMessageKey(group.id)
                         mAppVoiceRecorder.startRecord(messageKey)
                     } else if (motionEvent.action == MotionEvent.ACTION_UP) {
                         // Stop record
@@ -100,7 +101,7 @@ class PrivateChatFragment(private val contact: CommonModel) :
                             uploadFileToStorage(
                                 Uri.fromFile(file),
                                 messageKey,
-                                contact.id,
+                                group.id,
                                 MESSAGE_TYPE_VOICE
                             )
                             mIsScrollToEnd = true
@@ -134,9 +135,12 @@ class PrivateChatFragment(private val contact: CommonModel) :
     private fun initRecyclerView() {
         mRecyclerView = chat_messages
         mAdapter = ChatAdapter()
-        mRefMessages = REF_DATABASE_ROOT.child(NODE_MESSAGES)
-            .child(CURRENT_UID)
-            .child(contact.id)
+
+        mRefMessages = REF_DATABASE_ROOT
+            .child(NODE_GROUPS)
+            .child(group.id)
+            .child(NODE_MESSAGES)
+
         mRecyclerView.adapter = mAdapter
         mRecyclerView.setHasFixedSize(true)
         mRecyclerView.isNestedScrollingEnabled = false
@@ -190,8 +194,7 @@ class PrivateChatFragment(private val contact: CommonModel) :
                 showToast(getString(R.string.chat_message_warning))
             } else {
                 message = message.trim()
-                sendMessage(message, contact.id, MESSAGE_TYPE_TEXT) {
-                    addChatToMainList(contact.id, TYPE_PRIVATE_CHAT)
+                sendMessageToGroup(message, group.id, MESSAGE_TYPE_TEXT) {
                     chat_message_input.setText("")
                 }
             }
@@ -206,13 +209,13 @@ class PrivateChatFragment(private val contact: CommonModel) :
             initToolbarChat()
         }
 
-        mRefContact = REF_DATABASE_ROOT.child(NODE_USERS).child(contact.id)
+        mRefContact = REF_DATABASE_ROOT.child(NODE_USERS).child(group.id)
         mRefContact.addValueEventListener(mListenerChatToolbar)
     }
 
     private fun initToolbarChat() {
         if (mReceivedContact.fullname.isEmpty()) {
-            mToolbarChat.toolbar_chat_fullname.text = contact.fullname
+            mToolbarChat.toolbar_chat_fullname.text = group.fullname
         } else {
             mToolbarChat.toolbar_chat_fullname.text = mReceivedContact.fullname
         }
@@ -227,19 +230,19 @@ class PrivateChatFragment(private val contact: CommonModel) :
             when (requestCode) {
                 CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
                     val uri = CropImage.getActivityResult(data).uri
-                    val messageKey = getMessageKey(contact.id)
-                    uploadFileToStorage(uri, messageKey, contact.id, MESSAGE_TYPE_IMAGE)
+                    val messageKey = getMessageKey(group.id)
+                    uploadFileToStorage(uri, messageKey, group.id, MESSAGE_TYPE_IMAGE)
                     mIsScrollToEnd = true
                 }
                 PICK_FILE_REQUEST_CODE -> {
                     val uri = data.data
-                    val messageKey = getMessageKey(contact.id)
+                    val messageKey = getMessageKey(group.id)
                     val fileName: String = uri?.let { getFileNameFromUri(it) }.toString()
                     uri?.let {
                         uploadFileToStorage(
                             it,
                             messageKey,
-                            contact.id,
+                            group.id,
                             MESSAGE_TYPE_FILE,
                             fileName
                         )
@@ -257,11 +260,11 @@ class PrivateChatFragment(private val contact: CommonModel) :
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_chat_clear -> clearChat(contact.id) {
+            R.id.menu_chat_clear -> clearChat(group.id) {
                 showToast(getString(R.string.chat_cleared))
                 replaceFragment(ChatsFragment())
             }
-            R.id.menu_chat_delete -> deleteChat(contact.id) {
+            R.id.menu_chat_delete -> deleteChat(group.id) {
                 showToast(getString(R.string.chat_deleted))
                 replaceFragment(ChatsFragment())
             }
